@@ -16,5 +16,5 @@ export class Materia{
     notas:Nota[];
 
     @OneToMany(()=>AlumnoMateria,alumnoMateria=>alumnoMateria.materia)
-    materiaAlumnos:AlumnoMateria;
+    materiaAlumnos:AlumnoMateria[];
 }
