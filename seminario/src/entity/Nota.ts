@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Alumno } from "./Alumno";
 import { Materia } from "./Materia";
 
 
@@ -37,5 +38,8 @@ export class Nota{
         default:TipoNota.NORMAL
     })
     tipo:TipoNota;
+
+    @ManyToOne(()=>Alumno,alumno=>alumno.notas)
+    alumno:Alumno;
 
 }

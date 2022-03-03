@@ -18,7 +18,7 @@ export abstract class Persona{
     @Column({length:15})
     telefono:string;
 
-    @Column()
+    @Column({length:20})
     @IsEmail()
     email:string;
     

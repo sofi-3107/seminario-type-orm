@@ -14,14 +14,14 @@ export class Curso {
     @IsInt()
     nivel:number;
 
-    @Column()
+    @Column({length:12})
     @Length(6,10)
     ciclo:string;
 
     @Column("int")
     division:number;
 
-    @Column()
+    @Column({length:10})
     @Length(6,10)
     turno:string
 
