@@ -1,5 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { AlumnoMateria } from "./AlumnoMateria";
+import { Curso } from "./Curso";
+import { Docente } from "./Docente";
+import { DocenteMateria } from "./DocenteMateria";
 import { Nota } from "./Nota";
 
 
@@ -17,4 +20,10 @@ export class Materia{
 
     @OneToMany(()=>AlumnoMateria,alumnoMateria=>alumnoMateria.materia)
     materiaAlumnos:AlumnoMateria[];
+
+    @OneToMany(()=>Docente,docente=>docente.materias)
+    docentes:DocenteMateria[];
+
+    @ManyToMany(()=>Curso,curso=>curso.planDeEstudios)
+    cursos:Curso[];
 }

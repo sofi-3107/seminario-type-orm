@@ -29,10 +29,10 @@ createConnection().then(async connection => {
    .getOne();*/
 
   // const materiasAlumno1=await materiaRepository.find({relations:["materiaAlumnos"]});
-  const al= await alumnoRepository.findOne({id:1});
-  const materiasAlumno=await customMatRep.findMateriaByAlumnoSecond(2);
+  //const al= await alumnoRepository.findOne({id:1});
+  //const materiasAlumno=await customMatRep.findMateriaByAlumnoSecond(2);
 
-   materiasAlumno.map(m=>console.log(m));
+   //materiasAlumno.map(m=>console.log(m));
   //console.log(materiasAlumno1)
   
 

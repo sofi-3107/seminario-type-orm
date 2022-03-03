@@ -2,6 +2,7 @@ import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "t
 import { IsInt, Length} from "class-validator";
 import { Alumno } from "./Alumno";
 import { Preceptor } from "./Preceptor";
+import { Materia } from "./Materia";
 
 @Entity()
 export class Curso {
@@ -32,4 +33,8 @@ export class Curso {
 
     @ManyToMany(()=>Alumno,alumno=>alumno.cursoInscripciones)
     alumnos:Alumno[]
+
+    @ManyToMany(()=>Materia,materia=>materia.cursos)
+    planDeEstudios:Materia[];
+
 }

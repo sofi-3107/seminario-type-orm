@@ -27,8 +27,6 @@ export class AlumnoMateria{
     @Column("int")
     cicloLectivo:number;
 
-    @Column()
-    condicionMateria:string;
 
     @ManyToOne(()=>Alumno,alumno=>alumno.alumnoMaterias)
     alumno:Alumno;

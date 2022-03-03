@@ -1,6 +1,14 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Materia } from "./Materia";
 
+
+export enum TipoNota{
+    NORMAL="normal",
+    EXAMEN_REGULAR="examen regular",
+    EXAMEN_PENDIENTE="examen pendiente"
+}
+
+
 @Entity()
 export class Nota{
 
@@ -22,5 +30,12 @@ export class Nota{
     @ManyToOne(()=>Materia,materia=>materia.notas)
     @JoinColumn()
     materia:Materia;
+
+    @Column({
+        type:"enum",
+        enum:TipoNota,
+        default:TipoNota.NORMAL
+    })
+    tipo:TipoNota;
 
 }

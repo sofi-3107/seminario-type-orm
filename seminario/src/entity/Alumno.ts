@@ -2,6 +2,7 @@ import { Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
 import { AlumnoMateria } from "./AlumnoMateria";
 import { Asistencia } from "./Asistencia";
 import { Curso } from "./Curso";
+import { MesaExamen } from "./MesaExamen";
 import { Persona } from "./Persona";
 
 @Entity()
@@ -11,11 +12,14 @@ export class Alumno extends Persona{
     alumnoMaterias:AlumnoMateria[];
 
     @ManyToMany(()=>Asistencia)
-    @JoinTable()
+    @JoinTable({name:"alumno_asistencia"})
     asistencias:Asistencia[]
 
     @ManyToMany(()=>Curso,curso=>curso.alumnos)
-    @JoinTable({name:"alumno_asistencia"})
+    @JoinTable({name:"alumno_curso"})
     cursoInscripciones:Curso[]
+
+    @ManyToMany(()=>MesaExamen,mesaExamen=>mesaExamen.inscriptos)
+    mesasExamen:MesaExamen[];
     
 }
