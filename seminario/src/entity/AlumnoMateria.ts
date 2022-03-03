@@ -2,6 +2,16 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Alumno } from "./Alumno";
 import { Materia } from "./Materia";
 
+
+export enum CondicionMateria{
+    APROBADA="aprobada",
+    PENDIENTE="pendiente",
+    REGULAR="regular",
+    LIBRE="libre",
+    INICIAL="inicial"
+}
+
+
 @Entity()
 export class AlumnoMateria{
 
@@ -14,7 +24,7 @@ export class AlumnoMateria{
     @Column()
     materiaId:number;
 
-    @Column()
+    @Column("int")
     cicloLectivo:number;
 
     @Column()
@@ -25,4 +35,10 @@ export class AlumnoMateria{
 
     @ManyToOne(()=>Materia,materia=>materia.materiaAlumnos)
     materia:Materia;
+
+    @Column({type:"enum",
+        enum:CondicionMateria,
+        default:CondicionMateria.INICIAL})
+    condicion:CondicionMateria;
 }
+

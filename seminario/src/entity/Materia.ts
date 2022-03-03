@@ -9,7 +9,7 @@ export class Materia{
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column()
+    @Column({length:60})
     nombre:string;
 
     @OneToMany(()=>Nota,nota=>nota.materia)

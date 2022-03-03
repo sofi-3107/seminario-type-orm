@@ -4,13 +4,15 @@ import { isDataView } from "util/types";
 import { Alumno } from "./entity/Alumno";
 import { AlumnoMateria } from "./entity/AlumnoMateria";
 import { Materia } from "./entity/Materia";
-import {User} from "./entity/User";
+
 import {AlumnoRepository } from "./repository/AlumnoRepository";
+import { MateriaRepository } from "./repository/MateriaRepository";
 
 createConnection().then(async connection => {
     
     const alumnoRepository=connection.getRepository(Alumno);
     const materiaRepository=connection.getRepository(Materia);
+    const customMatRep=connection.getCustomRepository(MateriaRepository);
 
    /* const lengua=new Materia;
     lengua.nombre="Lengua I";
@@ -26,21 +28,12 @@ createConnection().then(async connection => {
    .andWhere('alumno.nombre=:nombre',{nombre:'Juan'})
    .getOne();*/
 
-   const materiasAlumno1=await materiaRepository.find({relations:["materiaAlumnos"]});
+  // const materiasAlumno1=await materiaRepository.find({relations:["materiaAlumnos"]});
+  const al= await alumnoRepository.findOne({id:1});
+  const materiasAlumno=await customMatRep.findMateriaByAlumnoSecond(2);
 
-   /**Obtener listado de materias por alumno, en el ciclo lectivo correspondiente */
-   const materiasAlumno=await materiaRepository
-   .createQueryBuilder("m")
-   .innerJoinAndSelect(AlumnoMateria,"am","m.id=am.materia")
-   .innerJoinAndSelect(Alumno,"a","a.id=am.alumno")
-   .where("a.id=:id",{id:2})
-   .andWhere("am.cicloLectivo=:anio",{anio:2021})
-   .getMany()
-
-   
-
-
-  materiasAlumno.map(m=>console.log(m.notas));
+   materiasAlumno.map(m=>console.log(m));
   //console.log(materiasAlumno1)
+  
 
 }).catch(error => console.log(error));

@@ -7,16 +7,16 @@ export class Nota{
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column()
+    @Column("int")
     trimestre:number;
 
-    @Column()
+    @Column("int")
     cicloLetivo:number;
 
-    @Column()
-    fecha:number;
+    @Column({length:10})
+    fecha:string;
 
-    @Column()
+    @Column("double")
     calificacion:number;
 
     @ManyToOne(()=>Materia,materia=>materia.notas)
