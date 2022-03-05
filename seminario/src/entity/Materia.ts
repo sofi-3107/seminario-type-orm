@@ -3,6 +3,7 @@ import { AlumnoMateria } from "./AlumnoMateria";
 import { Curso } from "./Curso";
 import { Docente } from "./Docente";
 import { DocenteMateria } from "./DocenteMateria";
+import { MesaExamen } from "./MesaExamen";
 import { Nota } from "./Nota";
 
 
@@ -21,9 +22,12 @@ export class Materia{
     @OneToMany(()=>AlumnoMateria,alumnoMateria=>alumnoMateria.materia)
     materiaAlumnos:AlumnoMateria[];
 
-    @OneToMany(()=>Docente,docente=>docente.materias)
+    @OneToMany(()=>DocenteMateria,docenteMateria=>docenteMateria.materia)
     docentes:DocenteMateria[];
 
     @ManyToMany(()=>Curso,curso=>curso.planDeEstudios)
     cursos:Curso[];
+
+    @OneToMany(()=>MesaExamen, mesaExamen=>mesaExamen.materia)
+    mesasExamen:MesaExamen;
 }

@@ -31,6 +31,28 @@ export class MateriaRepository extends Repository<Materia>{
     });
     }
 
+    findMateriasPropiasConAlumnos(){
+    //1º Recuperar las materias propias con la lista de alumnos en cada una y recien acceder a las notas
+    
+     return this.find({
+        join:{
+            alias:"m",
+            innerJoinAndSelect:{
+                docenteMateria:"m.docentes",
+                docente:"docenteMateria.docente",
+                nota:"m.notas",
+                alumno:"nota.alumno"
+            },
+        },
+        where:(qb)=>{
+                qb.where("docente.id=:id",{id:1})
+        }
+    });
+    }
+
+
+
+
 
     /*findMateriaByAlumnoThird(){
         return this.find({

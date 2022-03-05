@@ -1,5 +1,6 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Alumno } from "./Alumno";
+import { Materia } from "./Materia";
 import { TipoNota } from "./Nota";
 
 
@@ -32,5 +33,8 @@ export class MesaExamen {
     @ManyToMany(()=>Alumno,alumno=>alumno.mesasExamen)
     @JoinTable({name:"alumno_mesa_examen"})
     inscriptos:Alumno[];
+
+    @ManyToOne(()=>Materia,materia=>materia.mesasExamen)
+    materia:Materia;
 
 }
