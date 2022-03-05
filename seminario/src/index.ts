@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import { Alumno } from "./entity/Alumno";
 import { TipoMateria } from "./entity/DocenteMateria";
 import { MesaExamen } from "./entity/MesaExamen";
 
@@ -23,7 +22,7 @@ createConnection().then(async connection => {
             },
             
         },
-        where:(qb)=>{
+        where:(qb:any)=>{
             qb.where("d.id=:id",{id:1})
             .andWhere("docenteMateria.tipo=:tipo",{tipo:TipoMateria.MESA_EXAMEN_REGULAR})
            

@@ -15,7 +15,7 @@ export class MateriaRepository extends Repository<Materia>{
         .getMany()
     }
 
-    findMateriaByAlumnoSecond(id){
+    findMateriaByAlumnoSecond(id:number){
         return this.find({
             join:{
                 alias:"m",
@@ -24,7 +24,7 @@ export class MateriaRepository extends Repository<Materia>{
                     alumno:"materiaAlumnos.alumno",
                 }
             },
-            where:(qb)=>{
+            where:(qb:any)=>{
                 qb.where('alumno.id=:id',{id:id})
             }
             
@@ -44,7 +44,7 @@ export class MateriaRepository extends Repository<Materia>{
                 alumno:"nota.alumno"
             },
         },
-        where:(qb)=>{
+        where:(qb:any)=>{
                 qb.where("docente.id=:id",{id:1})
         }
     });
