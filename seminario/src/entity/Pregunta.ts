@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Encuesta } from "./Encuesta";
 
 @Entity()
@@ -10,11 +10,10 @@ export class Pregunta{
     @Column({length:100})
     consigna:string;
 
-    @ManyToOne(()=>Encuesta,encuesta=>encuesta.preguntas)
-    encuesta:Encuesta;
+  @OneToMany(()=>Encuesta,encuesta=>encuesta.pregunta)
+    encuestas:Encuesta[];
 
-    @Column("int")
-    cantidad:number;
+    
 
     
   

@@ -1,4 +1,5 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { DocenteMateria } from "./DocenteMateria";
 import { Pregunta } from "./Pregunta";
 
 
@@ -8,9 +9,9 @@ export class Encuesta{
     @PrimaryGeneratedColumn()
     id:number;
 
-    @OneToMany(()=>Pregunta,pregunta=>pregunta.encuesta)
-    @JoinTable({name:"encuesta_pregunta"})
-    preguntas:Pregunta[];
+   @ManyToOne(()=>Pregunta,pregunta=>pregunta.encuestas)
+    @JoinColumn({name:"id_pregunta"})
+    pregunta:Pregunta;
 
     @Column("int")
     cicloLectivo:number;
@@ -18,7 +19,11 @@ export class Encuesta{
     @Column("int")
     trimestre:number;
 
-    
+    @Column("int")
+    cantidad:number;
+
+    @ManyToMany(()=>DocenteMateria,docenteMateria=>docenteMateria.encuestas)
+    docenteMateria:DocenteMateria[];
 
     
 

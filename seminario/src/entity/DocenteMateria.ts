@@ -1,6 +1,7 @@
 
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Docente } from "./Docente";
+import { Encuesta } from "./Encuesta";
 import { Materia } from "./Materia";
 
 export enum TipoMateria{
@@ -39,6 +40,10 @@ export class DocenteMateria {
 
     @ManyToOne(()=>Materia,materia=>materia.docentes)
     materia:Materia;
+
+    @ManyToMany(()=>Encuesta,encuesta=>encuesta.docenteMateria)
+    @JoinTable({name:"docente_materia_encuesta"})
+    encuestas:Encuesta[];
 
 
 }
