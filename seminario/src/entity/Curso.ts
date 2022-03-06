@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IsInt, Length} from "class-validator";
 import { Alumno } from "./Alumno";
 import { Preceptor } from "./Preceptor";
@@ -35,6 +35,7 @@ export class Curso {
     alumnos:Alumno[]
 
     @ManyToMany(()=>Materia,materia=>materia.cursos)
+    @JoinTable({name:"materia_curso"})
     planDeEstudios:Materia[];
 
 }

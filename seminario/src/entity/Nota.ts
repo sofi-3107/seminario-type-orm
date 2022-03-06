@@ -20,7 +20,7 @@ export class Nota{
     trimestre:number;
 
     @Column("int")
-    cicloLetivo:number;
+    cicloLectivo:number;
 
     @Column({length:10})
     fecha:string;
