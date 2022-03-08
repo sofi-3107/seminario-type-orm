@@ -50,6 +50,24 @@ export class MateriaRepository extends Repository<Materia>{
     });
     }
 
+    //Acceso del alumno a sus notas
+    findMateriasConNotasDeUnAlumno(id:number,cl:number){
+        return this.find({
+            join:{
+                alias:"m",
+                innerJoinAndSelect:{
+                    alumnoMateria:"m.materiaAlumnos",
+                    alumno:"alumnoMateria.alumno",
+                    nota:"m.notas"
+                }
+            },
+            where:(qb:any)=>{qb
+                .where("alumno.id=;id",{id:id})
+                .andWhere("alumnoMateria.cicloLectivo=:cl",{cl:cl});
+            }
+        });
+    }
+
 
 
 

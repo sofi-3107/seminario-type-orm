@@ -12,8 +12,7 @@ export class Alumno extends Persona{
     @OneToMany(()=>AlumnoMateria,alumnoMateria=>alumnoMateria.alumno)
     alumnoMaterias:AlumnoMateria[];
 
-    @ManyToMany(()=>Asistencia)
-    @JoinTable({name:"alumno_asistencia"})
+    @OneToMany(()=>Asistencia,asistencia=>asistencia.alumno)
     asistencias:Asistencia[]
 
     @ManyToMany(()=>Curso,curso=>curso.alumnos)

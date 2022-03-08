@@ -11,6 +11,7 @@ export class AlumnoRepository extends Repository<Alumno>{
     //Lista de alumnos de cada curso con acceso a las asistencias de x periodo lectivo
     // Si alguna de las entidades del join no tiene datos el innerJoin devuelve []
     findByCurso(idCurso:number,cicloLectivo:number){
+
         return this.find({
             join:{
                 alias:"al",
@@ -25,6 +26,8 @@ export class AlumnoRepository extends Repository<Alumno>{
                 .andWhere("curso.cicloLectivo=:c",{c:cicloLectivo})             
             }
         });
+
+       
     }
     //Lista de Alumnos con acceso a sus notas de cada materia en x periodo lectivo
     findNotasMaterias(idCurso:number,cl:number,trimestre:number){

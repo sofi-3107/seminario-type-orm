@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Alumno } from "./Alumno";
 
 
@@ -29,6 +29,10 @@ export class Asistencia{
 
     @Column("int")
     cicloLectivo:number;
+
+    @ManyToOne(()=>Alumno,alumno=>alumno.asistencias)
+    @JoinColumn()
+    alumno:Alumno;
 
 
  

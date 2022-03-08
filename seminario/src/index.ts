@@ -4,6 +4,7 @@ import { TipoMateria } from "./entity/DocenteMateria";
 import { Encuesta } from "./entity/Encuesta";
 import { MesaExamen } from "./entity/MesaExamen";
 import { AlumnoRepository } from "./repository/AlumnoRepository";
+import { AsistenciaRepository } from "./repository/AsistenciaRepository";
 import { EncuestaRepository } from "./repository/EncuestaRepository";
 
 
@@ -16,7 +17,11 @@ createConnection().then(async connection => {
 
    const res=await Rep.findNotasMaterias(1,2021,1);
 
-   res.map(r=>console.log(r.notas));
+   const asistencia=connection.getCustomRepository(AsistenciaRepository);
+
+   const asistencias=await asistencia.findByAlumno(1,2021);
+
+   asistencias.map(r=>console.log(r));
      
 
 
