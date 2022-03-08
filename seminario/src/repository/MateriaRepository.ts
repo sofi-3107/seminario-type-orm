@@ -31,7 +31,7 @@ export class MateriaRepository extends Repository<Materia>{
     });
     }
 
-    findMateriasPropiasConAlumnos(){
+    findMateriasPropiasConAlumnos(id:number){
     //1º Recuperar las materias propias con la lista de alumnos en cada una y recien acceder a las notas
     
      return this.find({
@@ -45,7 +45,7 @@ export class MateriaRepository extends Repository<Materia>{
             },
         },
         where:(qb:any)=>{
-                qb.where("docente.id=:id",{id:1})
+                qb.where("docente.id=:id",{id:id})
         }
     });
     }
