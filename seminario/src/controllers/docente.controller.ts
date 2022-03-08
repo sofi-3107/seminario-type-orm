@@ -4,7 +4,8 @@ import { MateriaRepository } from "../repository/MateriaRepository";
 
 export const getAlumnosPorMateria=
 async (req:Request,res:Response)=>{
-    const alumnos=await getCustomRepository(MateriaRepository).findMateriasPropiasConAlumnos(1);
+    const alumnos=await getCustomRepository(MateriaRepository)
+        .findMateriasPropiasConAlumnos(parseInt(req.params.idDocente),parseInt(req.params.idMateria));
     return res.json(alumnos);
 }
 
