@@ -1,8 +1,9 @@
 import { Request,Response } from "express";
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, getRepository } from "typeorm";
+import { Nota } from "../entity/Nota";
 import { MateriaRepository } from "../repository/MateriaRepository";
 
-export const getAlumnosPorMateria=
+export const getMateriasConAlumnos=
 async (req:Request,res:Response)=>{
     const alumnos=await getCustomRepository(MateriaRepository)
         .findMateriasPropiasConAlumnos(parseInt(req.params.idDocente),parseInt(req.params.idMateria));
@@ -10,5 +11,6 @@ async (req:Request,res:Response)=>{
 }
 
 export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
-
+    const nota=await getRepository(Nota).save(req.body);
+        return nota;
 }

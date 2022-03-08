@@ -6,6 +6,7 @@ import { Materia } from "../entity/Materia";
 @EntityRepository(Materia)
 export class MateriaRepository extends Repository<Materia>{
 
+
     findBMateriasPorAlumnoAndAnio (id:number,anio:number){
         return  this.createQueryBuilder("m")
         .innerJoinAndSelect(AlumnoMateria,"am","m.id=am.materia")
@@ -41,6 +42,7 @@ export class MateriaRepository extends Repository<Materia>{
                 docenteMateria:"m.docentes",
                 docente:"docenteMateria.docente",
                 nota:"m.notas",
+                curso:"m.cursos",
                 alumno:"nota.alumno"
             },
         },
