@@ -42,7 +42,8 @@ export class MateriaRepository extends Repository<Materia>{
                 docenteMateria:"m.docentes",
                 docente:"docenteMateria.docente",
                 nota:"m.notas",
-                curso:"m.cursos",
+                cursoNivel:"m.cursoNivel",
+                curso:"cursoNivel.cursos",
                 alumno:"nota.alumno"
             },
         },
