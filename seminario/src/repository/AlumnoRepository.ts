@@ -48,4 +48,26 @@ export class AlumnoRepository extends Repository<Alumno>{
             }
         });
     }
+
+    //Acceder a la libreta, o notas de un alumno en particular de una materia en particular
+    findAlumnoByNotasMaterias(idAlumno:number,cl:number,trimestre:number){
+
+        return this.findOne({
+            join:{
+                alias:"al",
+            innerJoinAndSelect:{
+                    nota:"al.notas",
+                    materia:"nota.materia",                   
+                }
+            },
+            //Usar nombre diferente en las variables id,cl,t no id en todo
+            where:(qb:any)=>{qb
+                    .where("nota.cicloLectivo=:cL",{cL:cl})
+                    .andWhere("nota.trimestre=:t",{t:trimestre})
+                    .andWhere("al.id=:id",{id:idAlumno})
+            }
+        });
+    }
 }
+
+

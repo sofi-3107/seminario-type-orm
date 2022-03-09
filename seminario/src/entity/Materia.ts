@@ -1,7 +1,6 @@
 import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { AlumnoMateria } from "./AlumnoMateria";
 import { Curso } from "./Curso";
-import { Docente } from "./Docente";
 import { DocenteMateria } from "./DocenteMateria";
 import { MesaExamen } from "./MesaExamen";
 import { Nota } from "./Nota";

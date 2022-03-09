@@ -49,7 +49,7 @@ export class MateriaRepository extends Repository<Materia>{
         where:(qb:any)=>{
                 qb
                     .where("docente.id=:id",{id:idDocente})
-                    .andWhere("materia.id=:idM",{idM:idMateria})
+                    .andWhere("m.id=:idM",{idM:idMateria})
         }
     });
     }

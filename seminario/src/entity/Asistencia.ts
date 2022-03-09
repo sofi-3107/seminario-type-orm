@@ -22,9 +22,10 @@ export class Asistencia{
     tardanza:number;
 
 
-    @Column({type:"enum"
-    ,enum:EstadoAsistencia,
-    default:EstadoAsistencia.AUSENTE})
+    @Column({
+        type:"enum"
+        ,enum:EstadoAsistencia,
+        default:EstadoAsistencia.AUSENTE})
     estado:EstadoAsistencia;
 
     @Column("int")

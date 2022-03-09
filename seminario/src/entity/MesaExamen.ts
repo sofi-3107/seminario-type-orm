@@ -23,12 +23,12 @@ export class MesaExamen {
     @Column({length:10})
     horaFin:string;
 
-    @Column({
+   /* @Column({
         type:"enum",
         enum:TipoNota,
         default:TipoNota.EXAMEN_REGULAR
     })
-    condicionExamen:TipoNota;
+    condicionExamen:TipoNota;*/
 
     @ManyToMany(()=>Alumno,alumno=>alumno.mesasExamen)
     @JoinTable({name:"alumno_mesa_examen"})
