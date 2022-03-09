@@ -9,6 +9,11 @@ export enum TipoNota{
     EXAMEN_PENDIENTE="examen pendiente"
 }
 
+export enum CondicionMateria{
+    APROBADO="aprobado",
+    PENDIENTE="pendiente",
+    DESAPROBADO="desaprobado"
+}
 
 @Entity()
 export class Nota{
@@ -41,5 +46,7 @@ export class Nota{
 
     @ManyToOne(()=>Alumno,alumno=>alumno.notas)
     alumno:Alumno;
+
+    condicionMateria:CondicionMateria;
 
 }

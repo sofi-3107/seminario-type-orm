@@ -1,5 +1,4 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { AlumnoMateria } from "./AlumnoMateria";
 import { Curso } from "./Curso";
 import { CursoNivel } from "./CursoNivel";
 import { DocenteMateria } from "./DocenteMateria";
@@ -19,8 +18,6 @@ export class Materia{
     @OneToMany(()=>Nota,nota=>nota.materia)
     notas:Nota[];
 
-    @OneToMany(()=>AlumnoMateria,alumnoMateria=>alumnoMateria.materia)
-    materiaAlumnos:AlumnoMateria[];
 
     @OneToMany(()=>DocenteMateria,docenteMateria=>docenteMateria.materia)
     docentes:DocenteMateria[];
