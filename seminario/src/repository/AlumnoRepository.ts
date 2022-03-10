@@ -4,12 +4,8 @@ import { Alumno } from "../entity/Alumno";
 @EntityRepository(Alumno)
 export class AlumnoRepository extends Repository<Alumno>{
     
-    findByNombre(nombre:string){
-        return this.findOne({nombre});
-    }
 
     //Lista de alumnos de cada curso con acceso a las asistencias de x periodo lectivo
-    // Si alguna de las entidades del join no tiene datos el innerJoin devuelve []
     findByCurso(idCurso:number,cicloLectivo:number){
 
         return this.find({
@@ -52,6 +48,9 @@ export class AlumnoRepository extends Repository<Alumno>{
             }
         });
     }
+
+    
+
     //Lista de Alumnos con acceso a sus notas de cada materia en x periodo lectivo
     findNotasMaterias(idCurso:number,cl:number,trimestre:number){
         return this.find({
@@ -91,6 +90,21 @@ export class AlumnoRepository extends Repository<Alumno>{
             }
         });
     }
+
+
+
+
+
+
+
+    //Fue solo para ver como usar select
+    PruebadeSelect(){
+        return this.createQueryBuilder("alumno")
+            .innerJoin("alumno.mesasExamen","inscriptos","inscriptos.materia")
+            .select(["alumno.nombre","alumno.apellido","inscriptos.fecha","inscriptos.materia"]) 
+            .getMany();
+    }
+
 }
 
 

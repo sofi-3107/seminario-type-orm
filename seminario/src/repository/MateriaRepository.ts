@@ -31,28 +31,6 @@ export class MateriaRepository extends Repository<Materia>{
     });
     }
 
-    findMateriasPropiasConAlumnos(idDocente:number,idMateria:number){
-    //1º Recuperar las materias propias con la lista de alumnos en cada una y recien acceder a las notas
-    
-     return this.find({
-        join:{
-            alias:"m",
-            innerJoinAndSelect:{
-                docenteMateria:"m.docentes",
-                docente:"docenteMateria.docente",
-                nota:"m.notas",
-                cursoNivel:"m.cursoNivel",
-                curso:"cursoNivel.cursos",
-                alumno:"nota.alumno"
-            },
-        },
-        where:(qb:any)=>{
-                qb
-                    .where("docente.id=:id",{id:idDocente})
-                    .andWhere("m.id=:idM",{idM:idMateria})
-        }
-    });
-    }
 
     //Acceso del alumno a sus notas
     findMateriasConNotasDeUnAlumno(id:number,cl:number){

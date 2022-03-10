@@ -10,4 +10,5 @@ docenteRouter.get('/alumnos/:docente/:materia/:cl',getAlumnosPorMateria);
 docenteRouter.post('/calificar',cargarNotasAlumnos);
 
 
+
 export default docenteRouter;
