@@ -29,6 +29,29 @@ export class AlumnoRepository extends Repository<Alumno>{
 
        
     }
+
+    //Lista del docente luego de seleccionar la materia en el drawer
+    findAlumnosPorCadaMateria(docente:number,materia:number,cl:number){
+        return this.find({
+            join:{
+                alias:"a",
+                innerJoinAndSelect:{
+                    alumnoCurso:"a.cursos",
+                    curso:"alumnoCurso.curso",
+                    cursoNivel:"curso.nivel",
+                    materia:"cursoNivel.materias",
+                    docenteMateria:"materia.docentes",
+                    docente:"docenteMateria.docente"
+                }
+            },
+            where:(qb:any)=>{
+                qb
+                    .where("docente.id=:idDocente",{idDocente:docente})
+                    .andWhere("docenteMateria.cicloLectivo=:cl",{cl:cl})
+                    .andWhere("materia.id=:idMateria",{idMateria:materia})
+            }
+        });
+    }
     //Lista de Alumnos con acceso a sus notas de cada materia en x periodo lectivo
     findNotasMaterias(idCurso:number,cl:number,trimestre:number){
         return this.find({
