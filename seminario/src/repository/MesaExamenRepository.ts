@@ -1,5 +1,4 @@
 import { EntityRepository, Repository } from "typeorm";
-import { TipoMateria } from "../entity/DocenteMateria";
 import { MesaExamen } from "../entity/MesaExamen";
 
 
@@ -37,12 +36,13 @@ import { MesaExamen } from "../entity/MesaExamen";
 
 
                 //Obtener lista de mesas de examen de un docente
-                findMesasDeExamen(){
-                    return this.createQueryBuilder("mesas")
-                        .innerJoinAndSelect("mesas.materia","materia")
-                        .innerJoinAndSelect("materia.docentes","docenteMateria","docenteMateria.cicloLectivo=:cl",{cl:2021})
-                        .innerJoinAndSelect("docenteMateria.docente","docente","docente.id=:id",{id:2})
-                        .select(["docente.nombre","docente.apellido","materia.nombre","mesas.fecha","docenteMateria.tipo"])
+                findMesasDeExamen(docente:number,anio:number){
+                    return this.createQueryBuilder("mesa")
+                        .innerJoinAndSelect("mesa.materia","materia")
+                        .innerJoinAndSelect("mesa.docentesMesa","docentesMesa")
+                        //.innerJoinAndSelect("docenteMesas.docente","docente","docente.id=:id",{id:docente})
+                        .select(["materia.nombre","mesa.fecha","mesa.anio"])                     
+                        .where("mesa.anio=:anio",{anio:anio})
                         .getMany()
                 }
 

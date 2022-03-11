@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Curso } from "./Curso";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CursoNivel } from "./CursoNivel";
 import { DocenteMateria } from "./DocenteMateria";
 import { MesaExamen } from "./MesaExamen";

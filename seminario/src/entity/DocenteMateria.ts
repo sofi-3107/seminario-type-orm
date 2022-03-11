@@ -4,11 +4,7 @@ import { Docente } from "./Docente";
 import { Encuesta } from "./Encuesta";
 import { Materia } from "./Materia";
 
-export enum TipoMateria{
-    MESA_EXAMEN_REGULAR="examen_regular",
-    MESA_EXAMEN_PENDIENTES="examen_pendientes",
-    NORMAL="normal"
-}
+
 
 
 
@@ -27,14 +23,6 @@ export class DocenteMateria {
     @Column("int")
     cicloLectivo:number;
 
-    @Column(
-       {type:"enum",
-        enum:TipoMateria,
-        default:TipoMateria.NORMAL
-    })
-    tipo:TipoMateria;
-
-
     @ManyToOne(()=>Docente,docente=>docente.materias)
     docente:Docente;
 
@@ -45,7 +33,6 @@ export class DocenteMateria {
     @JoinTable({name:"docente_materia_encuesta"})
     encuestas:Encuesta[];
 
-    @Column()
-    isPresidente:boolean;
+
 
 }
