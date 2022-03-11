@@ -40,9 +40,8 @@ import { MesaExamen } from "../entity/MesaExamen";
                     return this.createQueryBuilder("mesa")
                         .innerJoinAndSelect("mesa.materia","materia")
                         .innerJoinAndSelect("mesa.docentesMesa","docentesMesa")
-                        //.innerJoinAndSelect("docenteMesas.docente","docente","docente.id=:id",{id:docente})
-                        .select(["materia.nombre","mesa.fecha","mesa.anio"])                     
-                        .where("mesa.anio=:anio",{anio:anio})
+                        .innerJoinAndSelect("docentesMesa.docente","docente","docente.id=:id",{id:docente})
+                        .select(["materia.nombre","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre"])                     
                         .getMany()
                 }
 
