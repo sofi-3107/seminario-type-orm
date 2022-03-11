@@ -3,8 +3,10 @@ import { getCustomRepository, getRepository, Transaction } from "typeorm";
 import { Nota, TipoNota } from "../entity/Nota";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
 import { MateriaRepository } from "../repository/MateriaRepository";
+import { MesaExamenRepository } from "../repository/MesaExamenRepository";
 
 
+/**NOTAS TRIMESTRALES */
 export const getAlumnosPorMateria=
 async (req:Request,res:Response)=>{
     const {docente,materia,cl}=req.params;
@@ -12,7 +14,6 @@ async (req:Request,res:Response)=>{
         .findAlumnosPorCadaMateria(parseInt(docente),parseInt(materia),parseInt(cl));
     return res.json(alumnos);
 }
-
 
 
 export const getMateriasAndCurso=async(req:Request,res:Response)=>{
@@ -29,5 +30,14 @@ export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
 
     const calif=await getRepository(Nota).save(req.body);
      return res.json(calif);
+}
+
+/**Traer mesas de examen para el Menu Drawer */
+
+export const getMesasDeExamen=async(req:Request,res:Response)=>{
+    const{id,tipo}=req.params;
+    const mesas= await getCustomRepository(MesaExamenRepository)
+        .findMesaExamenPorDocente(parseInt(id),tipo);
+    return res.json(mesas);
 }
 

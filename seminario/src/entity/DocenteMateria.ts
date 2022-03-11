@@ -45,5 +45,7 @@ export class DocenteMateria {
     @JoinTable({name:"docente_materia_encuesta"})
     encuestas:Encuesta[];
 
+    @Column()
+    isPresidente:boolean;
 
 }

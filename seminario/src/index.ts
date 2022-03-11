@@ -5,6 +5,7 @@ import cors from "cors";
 import docenteRouter from "./routes/docente.routes";
 import { Alumno } from "./entity/Alumno";
 import { Curso } from "./entity/Curso";
+import { MesaExamenRepository } from "./repository/MesaExamenRepository";
 //import morgan from "morgan";
 
 const app=express();
@@ -20,6 +21,14 @@ app.use('/docente',docenteRouter);
 
 
 createConnection().then(async connection => {
+
+  const meRep= connection.getCustomRepository(MesaExamenRepository);
+
+  const mesas=await meRep.findMesasDeExamen();
+
+  mesas.forEach(m => {
+    console.log(m.materia.nombre+" "+m.fecha+" "+m.horaInicio+" "+m.materia.docentes[0].tipo);
+  });
 
     
   /*  const curso=await connection.getRepository(Curso).findOne({id:1});

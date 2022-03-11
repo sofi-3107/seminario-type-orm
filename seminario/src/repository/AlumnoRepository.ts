@@ -100,9 +100,13 @@ export class AlumnoRepository extends Repository<Alumno>{
     //Fue solo para ver como usar select
     PruebadeSelect(){
         return this.createQueryBuilder("alumno")
-            .innerJoin("alumno.mesasExamen","inscriptos","inscriptos.materia")
-            .select(["alumno.nombre","alumno.apellido","inscriptos.fecha","inscriptos.materia"]) 
-            .getMany();
+                    .leftJoinAndSelect("alumno.mesasExamen","mesas")
+                    .leftJoinAndSelect("mesas.materia","mat")
+                    .leftJoinAndSelect("mat.docentes","docentes")
+                    .leftJoinAndSelect("docentes.docente","docente")
+           // .innerJoin("alumno.mesasExamen","inscriptos","inscriptos.materia")
+            //.select(["alumno.nombre","alumno.apellido","inscriptos.fecha","inscriptos.materia"]) 
+            //.getMany();
     }
 
 }
