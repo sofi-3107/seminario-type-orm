@@ -36,13 +36,25 @@ import { MesaExamen } from "../entity/MesaExamen";
 
 
                 //Obtener lista de mesas de examen de un docente
-                findMesasDeExamen(docente:number,anio:number){
+                findMesasDeExamen(docente:number,anio:number,tipo:string){
                     return this.createQueryBuilder("mesa")
                         .innerJoinAndSelect("mesa.materia","materia")
                         .innerJoinAndSelect("mesa.docentesMesa","docentesMesa")
                         .innerJoinAndSelect("docentesMesa.docente","docente","docente.id=:id",{id:docente})
                         .select(["materia.nombre","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre"])                     
+                        .where("mesa.tipo=:tipo AND mesa.anio=:anio",{tipo:tipo,anio:anio})
                         .getMany()
+                }
+
+                //Mesa de examen en particular con listado de alumnos 
+
+                findMesaDeExamenById(mesa:number,anio:number){
+                    return this.createQueryBuilder("mesa")
+                        .innerJoinAndSelect("mesa.materia","materia")
+                        .innerJoinAndSelect("mesa.inscriptos","alumnos")
+                        .select(["mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre"])
+                        .where("mesa.id=:mesa AND mesa.anio=:anio",{mesa:mesa,anio:anio})
+                        .getOne()
                 }
 
     }

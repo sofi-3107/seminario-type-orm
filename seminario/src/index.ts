@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import docenteRouter from "./routes/docente.routes";
 import { MesaExamenRepository } from "./repository/MesaExamenRepository";
+import { TipoMesa } from "./entity/MesaExamen";
 
 //import morgan from "morgan";
 
@@ -21,12 +22,7 @@ app.use('/docente',docenteRouter);
 
 createConnection().then(async connection => {
 
-   const meRep= getCustomRepository(MesaExamenRepository);
-
-    const mesas= await meRep.findMesasDeExamen(1,2021);
-
-   console.log(mesas);
-    mesas.forEach(m=>console.log(m))
+  
  
 }).catch(error => console.log(error));
 

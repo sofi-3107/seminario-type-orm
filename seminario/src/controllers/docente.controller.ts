@@ -35,9 +35,18 @@ export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
 /**Traer mesas de examen para el Menu Drawer */
 
 export const getMesasDeExamen=async(req:Request,res:Response)=>{
-    const{id,tipo}=req.params;
+    
+    const{id,tipo,anio}=req.params;
     const mesas= await getCustomRepository(MesaExamenRepository)
-        .findMesaExamenPorDocente(parseInt(id),tipo);
+        .findMesasDeExamen(parseInt(id),parseInt(anio),tipo);
     return res.json(mesas);
 }
 
+/**Traer lista de alumnos de una mesa de examen */
+export const getMesaUnica=async(req:Request,res:Response)=>{
+    const{id,anio}=req.params;
+    console.log('controlador')
+    const mesa=await getCustomRepository(MesaExamenRepository)
+        .findMesaDeExamenById(parseInt(id),parseInt(anio));
+        return res.json(mesa);
+}
