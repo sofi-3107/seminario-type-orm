@@ -1,8 +1,9 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IsInt, Length} from "class-validator";
-import { Alumno } from "./Alumno";
+import { AlumnoCurso } from "./AlumnoCurso";
 import { Preceptor } from "./Preceptor";
 import { Materia } from "./Materia";
+import { CursoNivel } from "./CursoNivel";
 
 @Entity()
 export class Curso {
@@ -11,31 +12,20 @@ export class Curso {
     id:number;
 
     @Column("int")
-    @IsInt()
-    nivel:number;
-
-    @Column({length:12})
-    @Length(6,10)
-    ciclo:string;
-
-    @Column("int")
     division:number;
 
     @Column({length:10})
     @Length(6,10)
     turno:string
 
-    @Column("int")
-    cicloLectivo:number;
-
     @ManyToOne(()=>Preceptor,preceptor=>preceptor.cursosACargo)
     preceptor:Preceptor;
 
-    @ManyToMany(()=>Alumno,alumno=>alumno.cursoInscripciones)
-    alumnos:Alumno[]
+    @ManyToMany(()=>AlumnoCurso,alumnoCurso=>alumnoCurso.curso)
+    alumnos:AlumnoCurso[]
 
-    @ManyToMany(()=>Materia,materia=>materia.cursos)
-    @JoinTable({name:"materia_curso"})
-    planDeEstudios:Materia[];
+    @ManyToOne(()=>CursoNivel,cursoNivel=>cursoNivel.cursos)
+    @JoinColumn({name:"curso_nivel"})
+    nivel:CursoNivel;
 
 }

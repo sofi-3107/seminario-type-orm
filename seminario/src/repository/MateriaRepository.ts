@@ -1,6 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Alumno } from "../entity/Alumno";
-import { AlumnoMateria } from "../entity/AlumnoMateria";
 import { Materia } from "../entity/Materia";
 
 @EntityRepository(Materia)
@@ -9,7 +8,7 @@ export class MateriaRepository extends Repository<Materia>{
 
     findBMateriasPorAlumnoAndAnio (id:number,anio:number){
         return  this.createQueryBuilder("m")
-        .innerJoinAndSelect(AlumnoMateria,"am","m.id=am.materia")
+       // .innerJoinAndSelect(AlumnoMateria,"am","m.id=am.materia")
         .innerJoinAndSelect(Alumno,"a","a.id=am.alumno")
         .where("a.id=:id",{id:id})
         .andWhere("am.cicloLectivo=:anio",{anio:anio})
@@ -32,27 +31,6 @@ export class MateriaRepository extends Repository<Materia>{
     });
     }
 
-    findMateriasPropiasConAlumnos(idDocente:number,idMateria:number){
-    //1º Recuperar las materias propias con la lista de alumnos en cada una y recien acceder a las notas
-    
-     return this.find({
-        join:{
-            alias:"m",
-            innerJoinAndSelect:{
-                docenteMateria:"m.docentes",
-                docente:"docenteMateria.docente",
-                nota:"m.notas",
-                curso:"m.cursos",
-                alumno:"nota.alumno"
-            },
-        },
-        where:(qb:any)=>{
-                qb
-                    .where("docente.id=:id",{id:idDocente})
-                    .andWhere("m.id=:idM",{idM:idMateria})
-        }
-    });
-    }
 
     //Acceso del alumno a sus notas
     findMateriasConNotasDeUnAlumno(id:number,cl:number){
@@ -72,22 +50,32 @@ export class MateriaRepository extends Repository<Materia>{
         });
     }
 
-
-
-
-
-    /*findMateriaByAlumnoThird(){
+    //Obtiene las materias de cada docente con sus respectivos cursos
+    findMateriasConCurso(idDocente:number,cl:number,tipo:string){
         return this.find({
-            relations:["materiaAlumnos","materiaAlumnos.alumno"], 
-            where:{
-                materiaAlumnos:{
-                    alumno:{
-                        id:1
-                    }
+            join:{
+                alias:"m",
+                innerJoinAndSelect:{
+                    docentes:"m.docentes",
+                    docente:"docentes.docente",
+                    curso:"m.curso",
+                    cursoOrg:"curso.cursos"
                 }
-            }          
-    });
-    }*/
+            },
+            where:(qb:any)=>{
+                qb
+                    .where("docente.id=:id",{id:idDocente})
+                    .andWhere("docentes.cicloLectivo=:cl",{cl:cl})
+                    .andWhere("docentes.tipo=:t",{t:tipo})
+            }
+        });
+    }
+
+
+
+
+
+
 
 
 }

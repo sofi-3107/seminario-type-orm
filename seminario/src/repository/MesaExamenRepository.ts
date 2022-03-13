@@ -1,5 +1,4 @@
 import { EntityRepository, Repository } from "typeorm";
-import { TipoMateria } from "../entity/DocenteMateria";
 import { MesaExamen } from "../entity/MesaExamen";
 
 
@@ -11,7 +10,7 @@ import { MesaExamen } from "../entity/MesaExamen";
     export class MesaExamenRepository extends Repository<MesaExamen>{
 
 
-        findMesaExamenPorDocente(id:number){
+        findMesaExamenPorDocente(id:number,tipo:string){
             
              //Lista de mesas de examen con sus materias  y alumnos
         return this.find({
@@ -23,19 +22,47 @@ import { MesaExamen } from "../entity/MesaExamen";
                         materia:"me.materia",
                         docenteMateria:"materia.docentes",
                         d:"docenteMateria.docente",
-                        alumno:"me.inscriptos"
+                        //alumno:"me.inscriptos"
                     },
                     
                 },
                 where:(qb:any)=>{
                     qb.where("d.id=:id",{id:id})
-                    .andWhere("docenteMateria.tipo=:tipo",{tipo:TipoMateria.MESA_EXAMEN_REGULAR})
+                    .andWhere("docenteMateria.tipo=:tipo",{tipo:tipo})
                 
                 }
             });
                 }
 
+
+                //Obtener lista de mesas de examen de un docente
+                findMesasDeExamen(docente:number,anio:number,tipo:string){
+                    return this.createQueryBuilder("mesa")
+                        .innerJoinAndSelect("mesa.materia","materia")
+                        .innerJoinAndSelect("mesa.docentesMesa","docentesMesa")
+                        .innerJoinAndSelect("docentesMesa.docente","docente","docente.id=:id",{id:docente})
+                        .select(["materia.nombre","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre"])                     
+                        .where("mesa.tipo=:tipo AND mesa.anio=:anio",{tipo:tipo,anio:anio})
+                        .getMany()
+                }
+
+                //Mesa de examen en particular con listado de alumnos 
+
+                findMesaDeExamenById(mesa:number,anio:number){
+                    return this.createQueryBuilder("mesa")
+                        .innerJoinAndSelect("mesa.materia","materia")
+                        .innerJoinAndSelect("mesa.inscriptos","alumnos")
+                        .select(["mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre"])
+                        .where("mesa.id=:mesa AND mesa.anio=:anio",{mesa:mesa,anio:anio})
+                        .getOne()
+                }
+
     }
+
+
+    
+
+  
 
 
 

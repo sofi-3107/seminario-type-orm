@@ -1,9 +1,14 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Alumno } from "./Alumno";
+import { DocenteMesaExamen } from "./DocenteMesaExamen";
 import { Materia } from "./Materia";
 import { TipoNota } from "./Nota";
 
-
+export enum TipoMesa{
+    MESA_EXAMEN_REGULAR="examen_regular",
+    MESA_EXAMEN_PENDIENTES="examen_pendientes",
+  
+}
 
 
 
@@ -23,13 +28,6 @@ export class MesaExamen {
     @Column({length:10})
     horaFin:string;
 
-   /* @Column({
-        type:"enum",
-        enum:TipoNota,
-        default:TipoNota.EXAMEN_REGULAR
-    })
-    condicionExamen:TipoNota;*/
-
     @ManyToMany(()=>Alumno,alumno=>alumno.mesasExamen)
     @JoinTable({name:"alumno_mesa_examen"})
     inscriptos:Alumno[];
@@ -37,4 +35,16 @@ export class MesaExamen {
     @ManyToOne(()=>Materia,materia=>materia.mesasExamen)
     materia:Materia;
 
+    @Column(
+        {type:"enum",
+         enum:TipoMesa,
+         default:TipoMesa.MESA_EXAMEN_REGULAR
+     })
+     tipo:TipoMesa;
+
+     @OneToMany(()=>DocenteMesaExamen,docenteMesaExamen=>docenteMesaExamen.mesaExamen)
+     docentesMesa:DocenteMesaExamen[];
+
+     @Column("int")
+     anio:number;
 }
