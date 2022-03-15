@@ -27,7 +27,9 @@ export const getMateriasAndCurso=async(req:Request,res:Response)=>{
 export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
     // En el body envio el id de materia y alumno, no hizo
     //falta buscar los objetos para establecer la relacion
-
+    /* En el mismo cuerpo del body, en el objeto nota pondremos el tipo
+    y se puede usar este mismo método para las mesas de examen y notas normales
+    desde la app se manejara el atirbuto tipo */
     const calif=await getRepository(Nota).save(req.body);
      return res.json(calif);
 }
