@@ -4,7 +4,7 @@ import { cargarNotasAlumnos, getAlumnosPorMateria, getMateriasAndCurso, getMesas
 const docenteRouter=Router();
 
 //Menu del Drawer
-docenteRouter.get('/materias/:id/:cl/:tipo',getMateriasAndCurso);
+docenteRouter.get('/materias/:id/:cl',getMateriasAndCurso);
 //Lista de alumnos de una materia elegida del menu
 docenteRouter.get('/alumnos/:docente/:materia/:cl',getAlumnosPorMateria);
 //Guarda las notas

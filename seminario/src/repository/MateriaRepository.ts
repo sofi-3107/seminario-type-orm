@@ -51,7 +51,7 @@ export class MateriaRepository extends Repository<Materia>{
     }
 
     //Obtiene las materias de cada docente con sus respectivos cursos
-    findMateriasConCurso(idDocente:number,cl:number,tipo:string){
+    findMateriasConCurso(idDocente:number,cl:number){
         return this.find({
             join:{
                 alias:"m",
@@ -66,7 +66,7 @@ export class MateriaRepository extends Repository<Materia>{
                 qb
                     .where("docente.id=:id",{id:idDocente})
                     .andWhere("docentes.cicloLectivo=:cl",{cl:cl})
-                    .andWhere("docentes.tipo=:t",{t:tipo})
+                    //.andWhere("docentes.tipo=:t",{t:tipo})
             }
         });
     }

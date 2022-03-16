@@ -17,9 +17,9 @@ async (req:Request,res:Response)=>{
 
 
 export const getMateriasAndCurso=async(req:Request,res:Response)=>{
-    const {id,cl,tipo}=req.params;
+    const {id,cl}=req.params;
     const matRep= getCustomRepository(MateriaRepository);
-    const materias=await matRep.findMateriasConCurso(parseInt(id),parseInt(cl),tipo);
+    const materias=await matRep.findMateriasConCurso(parseInt(id),parseInt(cl));
     //materias.forEach(m=>console.log(m.nombre+" "+m.curso.nivel+m.curso.cursos[0].division+m.curso.ciclo+m.curso.cursos[0].turno));
     return res.json(materias);
 }
