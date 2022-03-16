@@ -48,12 +48,12 @@ import { MesaExamen } from "../entity/MesaExamen";
 
                 //Mesa de examen en particular con listado de alumnos 
 
-                findMesaDeExamenById(mesa:number,anio:number){
+                findMesaDeExamenById(mesa:number){
                     return this.createQueryBuilder("mesa")
                         .innerJoinAndSelect("mesa.materia","materia")
                         .innerJoinAndSelect("mesa.inscriptos","alumnos")
                         .select(["mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre"])
-                        .where("mesa.id=:mesa AND mesa.anio=:anio",{mesa:mesa,anio:anio})
+                        .where("mesa.id=:mesa",{mesa:mesa})
                         .getOne()
                 }
 

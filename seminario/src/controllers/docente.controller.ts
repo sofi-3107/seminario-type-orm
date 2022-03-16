@@ -49,6 +49,6 @@ export const getMesaUnica=async(req:Request,res:Response)=>{
     const{id,anio}=req.params;
     console.log('controlador')
     const mesa=await getCustomRepository(MesaExamenRepository)
-        .findMesaDeExamenById(parseInt(id),parseInt(anio));
+        .findMesaDeExamenById(parseInt(id));
         return res.json(mesa);
 }

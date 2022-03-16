@@ -66,7 +66,6 @@ export class MateriaRepository extends Repository<Materia>{
                 qb
                     .where("docente.id=:id",{id:idDocente})
                     .andWhere("docentes.cicloLectivo=:cl",{cl:cl})
-                    //.andWhere("docentes.tipo=:t",{t:tipo})
             }
         });
     }

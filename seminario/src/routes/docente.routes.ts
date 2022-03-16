@@ -12,7 +12,7 @@ docenteRouter.post('/calificar',cargarNotasAlumnos);
 //Mesas de Examen en Drawer
 docenteRouter.get('/mesas/:id/:tipo/:anio',getMesasDeExamen);
 //ver una mesa de examen en particular con alumnos inscriptos
-docenteRouter.get('/mesa/:id/:anio',getMesaUnica);
+docenteRouter.get('/mesa/:id',getMesaUnica);
 
 
 export default docenteRouter;
