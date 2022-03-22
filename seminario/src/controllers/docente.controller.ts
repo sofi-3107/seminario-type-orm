@@ -4,6 +4,7 @@ import { Nota, TipoNota } from "../entity/Nota";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
 import { MateriaRepository } from "../repository/MateriaRepository";
 import { MesaExamenRepository } from "../repository/MesaExamenRepository";
+import { NotasRepository } from "../repository/NotasRepository";
 
 
 /**NOTAS TRIMESTRALES */
@@ -19,9 +20,16 @@ async (req:Request,res:Response)=>{
 export const getMateriasAndCurso=async(req:Request,res:Response)=>{
     const {id,cl}=req.params;
     const matRep= getCustomRepository(MateriaRepository);
-    const materias=await matRep.findMateriasConCurso(parseInt(id),parseInt(cl));
+    const materias=await matRep.findMateriasPropias(parseInt(id),parseInt(cl));
     //materias.forEach(m=>console.log(m.nombre+" "+m.curso.nivel+m.curso.cursos[0].division+m.curso.ciclo+m.curso.cursos[0].turno));
     return res.json(materias);
+}
+
+export const getNotas=async(req:Request,res:Response)=>{
+    const {anio,materia,alumno,tipo}=req.params;
+    const notasRep= getCustomRepository(NotasRepository);
+    const notas=await notasRep.findNotasAlumnos(parseInt(alumno),parseInt(materia),parseInt(anio),tipo);
+    return res.json(notas);
 }
 
 export const cargarNotasAlumnos=async(req:Request,res:Response)=>{

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { cargarNotasAlumnos, getAlumnosPorMateria, getMateriasAndCurso, getMesasDeExamen, getMesaUnica } from "../controllers/docente.controller";
+import { cargarNotasAlumnos, getAlumnosPorMateria, getMateriasAndCurso, getMesasDeExamen, getMesaUnica, getNotas } from "../controllers/docente.controller";
 
 const docenteRouter=Router();
 
@@ -7,6 +7,8 @@ const docenteRouter=Router();
 docenteRouter.get('/materias/:id/:cl',getMateriasAndCurso);
 //Lista de alumnos de una materia elegida del menu
 docenteRouter.get('/alumnos/:docente/:materia/:cl',getAlumnosPorMateria);
+//Lista de notas de trimestres anteriores
+docenteRouter.get('/notas/:alumno/:materia/:anio/:tipo',getNotas);
 //Guarda las notas
 docenteRouter.post('/calificar',cargarNotasAlumnos);
 //Mesas de Examen en Drawer
@@ -15,4 +17,6 @@ docenteRouter.get('/mesas/:id/:tipo/:anio',getMesasDeExamen);
 docenteRouter.get('/mesa/:id',getMesaUnica);
 
 
+
 export default docenteRouter;
+

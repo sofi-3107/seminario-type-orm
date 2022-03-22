@@ -71,6 +71,17 @@ export class MateriaRepository extends Repository<Materia>{
     }
 
 
+    findMateriasPropias(docente:number,cl:number){
+        return this.createQueryBuilder("m")
+            .innerJoinAndSelect("m.docentes","docentes","docentes.cicloLectivo=:cl",{cl:cl})
+            .innerJoinAndSelect("docentes.docente","docente","docente.id=:id",{id:docente})
+            .innerJoinAndSelect("m.curso","curso")
+            .innerJoinAndSelect("curso.cursos","cursos")
+            .select(["m.nombre","docentes.docente","docente.id","curso.nivel","curso.ciclo","cursos.turno","cursos.division"])
+            .getMany()
+    }
+
+
 
 
 

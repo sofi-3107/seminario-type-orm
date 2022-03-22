@@ -47,6 +47,11 @@ export class Nota{
     @ManyToOne(()=>Alumno,alumno=>alumno.notas)
     alumno:Alumno;
 
+    @Column({
+        type:"enum",
+        enum:CondicionMateria,
+        default:CondicionMateria.DESAPROBADO
+    })
     condicionMateria:CondicionMateria;
 
 }
