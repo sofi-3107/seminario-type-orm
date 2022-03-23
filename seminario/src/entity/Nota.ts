@@ -11,6 +11,7 @@ export enum TipoNota{
 
 export enum CondicionMateria{
     APROBADO="aprobado",
+    APROBADO_MESA="aprobado en mesa de examen",
     PENDIENTE="pendiente",
     DESAPROBADO="desaprobado"
 }

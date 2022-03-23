@@ -61,7 +61,7 @@ import { MesaExamen } from "../entity/MesaExamen";
 
                 //Mesas de examen disponibles para las materias que debe rendir un alumno en particular
                 
-                getMesasExamenDisponiblesAlumno(alumno:number,condicionM:string,cl:number,tipoExamen:string){
+                findMesasExamenDisponiblesAlumno(alumno:number,condicionM:string,cl:number,tipoExamen:string){
 
                     return this.createQueryBuilder("me")
                                 .innerJoinAndSelect("me.materia","materia")

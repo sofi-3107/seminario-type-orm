@@ -6,6 +6,7 @@ import docenteRouter from "./routes/docente.routes";
 import { MesaExamenRepository } from "./repository/MesaExamenRepository";
 import { TipoMesa } from "./entity/MesaExamen";
 import preceptorRouter from "./routes/preceptor.router";
+import alumnoRouter from "./routes/alumno.routes";
 
 //import morgan from "morgan";
 
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use('/docente',docenteRouter);
 app.use('/preceptor',preceptorRouter);
+app.use('/alumno',alumnoRouter);
 
 
 createConnection().then(async connection => {
