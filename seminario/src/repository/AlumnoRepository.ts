@@ -96,8 +96,8 @@ export class AlumnoRepository extends Repository<Alumno>{
                     .innerJoinAndSelect("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
                     .innerJoinAndSelect("cursos.curso","curso","curso.id=:curso",{curso:curso})
                     .innerJoinAndSelect("a.tutor","tutor")
-                    //.innerJoinAndSelect("a.asistencias","asistencias","asistencias.cicloLectivo=:cl",{cl:cl})
-                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono"])
+                    .innerJoinAndSelect("a.asistencias","asistencias")
+                    //.select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono"])
                     .getMany();
     }
 
