@@ -1,0 +1,8 @@
+*Consulta de cantidad de inasistencias por alumno de un curso en particular*
+SELECT COUNT(a.estado),al.apellido,a.fecha FROM asistencia AS a JOIN alumno AS al ON a.alumnoId=al.id JOIN alumno_curso AS ac ON al.id=ac.alumnoId JOIN curso AS c ON ac.cursoId=c.id WHERE a.estado='ausente' AND c.id=1 GROUP BY al.apellido 
+
+*Consulta de cantidad de inasistencias de un alumno en particular*
+
+SELECT count(a.fecha) FROM asistencia AS a 
+JOIN alumno AS al ON a.alumnoId=al.id
+WHERE al.id=1 AND a.estado='ausente';

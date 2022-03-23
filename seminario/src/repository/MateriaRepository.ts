@@ -81,7 +81,13 @@ export class MateriaRepository extends Repository<Materia>{
             .getMany()
     }
 
-
+    getMateriasPendientesAlumno(alumno:number,cl:number){
+        return this.createQueryBuilder("m")
+                    .innerJoinAndSelect("m.notas","notas","notas.cicloLectivo=:cl",{cl:cl})
+                    .innerJoinAndSelect("notas.alumno","alumno","alumno.id=:alumno",{alumno:alumno})
+                    .where("m.condicionMateria=:pendiente" )
+                    .getMany()
+    }
 
 
 

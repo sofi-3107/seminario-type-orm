@@ -1,0 +1,27 @@
+APP ALUMNO
+
+getNotasByAlumno(cl)
+
+
+getAsistenciaBYAlumno(cl)
+
+getMesaExamenByAlumno(cl) // Fecha de mesa para materias que deba y estado si es inscripto o no
+ hay una tabla alumno_mesa_examen sin entidad. La entidad Nota lleva registro de si es pendiente
+o no en su atributo condicion(pendiente,aprobado,desaprobado) tipo(normal, examen regular,examen pendiente)
+
+//Materias pendientes de un alumno
+
+SELECT m.nombre FROM materia as m
+ JOIN nota AS n ON n.materiaId=m.id
+ JOIN alumno AS a ON a.id=n.alumnoId
+ WHERE n.condicionMateria='pendiente' AND a.id=1 
+ AND n.cicloLectivo=2021;
+
+//Mesas de examen disponibles para las materias pendientes del alumno
+
+SELECT me.fecha, m.nombre FROM mesa_examen AS me
+JOIN materia AS m ON m.id=me.materiaId
+JOIN nota AS n ON n.materiaId=m.id
+JOIN alumno AS a ON  n.alumnoId=a.id
+WHERE n.condicionMateria='pendiente' 
+AND a.id=1 AND me.tipo='examen pendientes'

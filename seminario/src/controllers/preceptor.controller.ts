@@ -1,7 +1,6 @@
 import { Request,Response } from "express";
 import { getCustomRepository, getRepository } from "typeorm";
 import { Asistencia } from "../entity/Asistencia";
-import { Curso } from "../entity/Curso";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
 import { CursoRepository } from "../repository/CursoRepository";
 

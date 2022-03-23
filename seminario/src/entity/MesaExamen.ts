@@ -5,8 +5,8 @@ import { Materia } from "./Materia";
 import { TipoNota } from "./Nota";
 
 export enum TipoMesa{
-    MESA_EXAMEN_REGULAR="examen_regular",
-    MESA_EXAMEN_PENDIENTES="examen_pendientes",
+    MESA_EXAMEN_REGULAR="examen regular",
+    MESA_EXAMEN_PENDIENTES="examen pendientes",
   
 }
 
