@@ -5,6 +5,7 @@ import cors from "cors";
 import docenteRouter from "./routes/docente.routes";
 import { MesaExamenRepository } from "./repository/MesaExamenRepository";
 import { TipoMesa } from "./entity/MesaExamen";
+import preceptorRouter from "./routes/preceptor.router";
 
 //import morgan from "morgan";
 
@@ -18,6 +19,7 @@ app.use(express.json());
 //Rutas
 
 app.use('/docente',docenteRouter);
+app.use('/preceptor',preceptorRouter);
 
 
 createConnection().then(async connection => {

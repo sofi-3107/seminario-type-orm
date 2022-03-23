@@ -1,9 +1,10 @@
-import { Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
+import { Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 import { Asistencia } from "./Asistencia";
 import { MesaExamen } from "./MesaExamen";
 import { Nota } from "./Nota";
 import { Persona } from "./Persona";
 import { AlumnoCurso } from "./AlumnoCurso";
+import { Tutor } from "./Tutor";
 
 @Entity()
 export class Alumno extends Persona{
@@ -19,5 +20,8 @@ export class Alumno extends Persona{
 
     @OneToMany(()=>Nota,nota=>nota.alumno)
     notas:Nota[];
+
+    @ManyToOne(()=>Tutor,tutor=>tutor.alumnos)
+    tutor:Tutor;
     
 }

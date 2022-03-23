@@ -90,6 +90,16 @@ export class AlumnoRepository extends Repository<Alumno>{
             }
         });
     }
+    //Lista de Alumnos por curso para guardar su asistencia
+    findAlumnosPorCursoAsistencia(curso:number,cl:number){
+        return this.createQueryBuilder("a")
+                    .innerJoinAndSelect("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
+                    .innerJoinAndSelect("cursos.curso","curso","curso.id=:curso",{curso:curso})
+                    .innerJoinAndSelect("a.tutor","tutor")
+                    //.innerJoinAndSelect("a.asistencias","asistencias","asistencias.cicloLectivo=:cl",{cl:cl})
+                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono"])
+                    .getMany();
+    }
 
 
 
