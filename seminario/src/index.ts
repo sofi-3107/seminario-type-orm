@@ -5,8 +5,8 @@ import cors from "cors";
 import docenteRouter from "./routes/docente.routes";
 import { MesaExamenRepository } from "./repository/MesaExamenRepository";
 import { TipoMesa } from "./entity/MesaExamen";
-import preceptorRouter from "./routes/preceptor.router";
 import alumnoRouter from "./routes/alumno.routes";
+import preceptorRouter from "./routes/preceptor.routes";
 
 //import morgan from "morgan";
 

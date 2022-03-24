@@ -35,8 +35,17 @@ export class AsistenciaRepository extends Repository<Asistencia>{
                     .innerJoinAndSelect("a.alumno","alumno")
                     .innerJoinAndSelect("alumno.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
                     .innerJoinAndSelect("cursos.curso","curso","curso.id=:curso",{curso:curso})
-                    .groupBy("alumno.apellido")
+                    .select(["alumno.apellido","alumno.nombre","a.fecha","a.estado"])
+                    .where("a.estado='ausente'")
                     .getMany()
     }
 
+    getRawCantidadInasistenciasCurso(curso:number,cl:number){
+        return this.query(`SELECT COUNT(a.fecha) AS inasistencias ,al.nombre, al.apellido,al.id
+        FROM asistencia As a JOIN alumno AS al ON a.alumnoId=al.id
+        JOIN alumno_curso AS ac ON al.id=ac.alumnoId
+        JOIN curso as c ON ac.cursoId=c.id 
+        WHERE a.estado='ausente' AND c.id=${curso}  AND a.cicloLectivo=${cl} GROUP BY al.id`);
+    }
+   
 }

@@ -18,7 +18,7 @@ export class Asistencia{
     @Column({length:10})
     fecha:string;
 
-    @Column("int")
+    @Column("int",{default:0})
     tardanza:number;
 
 
