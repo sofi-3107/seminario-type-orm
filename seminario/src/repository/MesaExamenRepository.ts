@@ -42,7 +42,7 @@ import { MesaExamen } from "../entity/MesaExamen";
                         .innerJoinAndSelect("mesa.docentesMesa","docentesMesa")
                         .innerJoinAndSelect("docentesMesa.docente","docente","docente.id=:id",{id:docente})
                         .innerJoinAndSelect("mesa.inscriptos","inscriptos")
-                        .select(["materia.nombre","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre","inscriptos.nombre","inscriptos.apellido","docentesMesa.isPresidente"])                     
+                        .select(["materia.nombre","mesa.id","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre","inscriptos.nombre","inscriptos.apellido","docentesMesa.isPresidente"])                     
                         .where("mesa.tipo=:tipo AND mesa.anio=:anio",{tipo:tipo,anio:anio})
                         .getMany()
                 }
