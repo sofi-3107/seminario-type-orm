@@ -90,34 +90,18 @@ export class AlumnoRepository extends Repository<Alumno>{
             }
         });
     }
-    //Lista de Alumnos por curso para guardar su asistencia
+    //Lista de Alumnos por curso para guardar su asistencia, para el envio de sms 
     findAlumnosPorCursoAsistencia(curso:number,cl:number){
         return this.createQueryBuilder("a")
                     .innerJoinAndSelect("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
                     .innerJoinAndSelect("cursos.curso","curso","curso.id=:curso",{curso:curso})
                     .innerJoinAndSelect("a.tutor","tutor")
                     .innerJoinAndSelect("a.asistencias","asistencias")
-                    //.select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono"])
+                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono"])
                     .getMany();
     }
 
 
-
-
-
-
-
-    //Fue solo para ver como usar select
-    PruebadeSelect(){
-        return this.createQueryBuilder("alumno")
-                    .leftJoinAndSelect("alumno.mesasExamen","mesas")
-                    .leftJoinAndSelect("mesas.materia","mat")
-                    .leftJoinAndSelect("mat.docentes","docentes")
-                    .leftJoinAndSelect("docentes.docente","docente")
-           // .innerJoin("alumno.mesasExamen","inscriptos","inscriptos.materia")
-            //.select(["alumno.nombre","alumno.apellido","inscriptos.fecha","inscriptos.materia"]) 
-            //.getMany();
-    }
 
 }
 
