@@ -55,7 +55,7 @@ export const getMesasDeExamen=async(req:Request,res:Response)=>{
 /**Traer lista de alumnos de una mesa de examen */
 export const getMesaUnica=async(req:Request,res:Response)=>{
     const{id,anio}=req.params;
-    console.log('controlador')
+    console.log(`mesa id: ${id}`);
     const mesa=await getCustomRepository(MesaExamenRepository)
         .findMesaDeExamenById(parseInt(id));
         return res.json(mesa);

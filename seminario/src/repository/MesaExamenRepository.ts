@@ -53,7 +53,7 @@ import { MesaExamen } from "../entity/MesaExamen";
                     return this.createQueryBuilder("mesa")
                         .innerJoinAndSelect("mesa.materia","materia")
                         .innerJoinAndSelect("mesa.inscriptos","alumnos")
-                        .select(["mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre"])
+                        .select(["mesa.id","mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre"])
                         .where("mesa.id=:mesa",{mesa:mesa})
                         .getOne()
                 }
