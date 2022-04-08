@@ -26,9 +26,17 @@ export const getMateriasAndCurso=async(req:Request,res:Response)=>{
 }
 
 export const getNotas=async(req:Request,res:Response)=>{
-    const {anio,materia,alumno,tipo}=req.params;
+    const {anio,materia,alumno,tipo,trimestre}=req.params;
+    console.log(req.params);
     const notasRep= getCustomRepository(NotasRepository);
     const notas=await notasRep.findNotasAlumnos(parseInt(alumno),parseInt(materia),parseInt(anio),tipo);
+    return res.json(notas);
+}
+export const getNota=async(req:Request,res:Response)=>{
+    const {anio,materia,alumno,tipo,trimestre}=req.params;
+    console.log(req.params);
+    const notasRep= getCustomRepository(NotasRepository);
+    const notas=await notasRep.findNotaAlumnos(parseInt(alumno),parseInt(materia),parseInt(anio),tipo,parseInt(trimestre));
     return res.json(notas);
 }
 

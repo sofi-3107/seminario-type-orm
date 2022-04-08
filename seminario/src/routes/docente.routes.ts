@@ -8,7 +8,7 @@ docenteRouter.get('/materias/:id/:cl',getMateriasAndCurso);
 //Lista de alumnos de una materia elegida del menu
 docenteRouter.get('/alumnos/:docente/:materia/:cl',getAlumnosPorMateria);
 //Lista de notas de trimestres anteriores
-docenteRouter.get('/notas/:alumno/:materia/:anio/:tipo',getNotas);
+docenteRouter.get('/notas/:alumno/:materia/:anio/:tipo/:trimestre',getNotas);
 //Guarda las notas
 docenteRouter.post('/calificar',cargarNotasAlumnos);
 //Mesas de Examen en Drawer
