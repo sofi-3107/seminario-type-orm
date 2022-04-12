@@ -37,7 +37,12 @@ export const getNota=async(req:Request,res:Response)=>{
     console.log(req.params);
     const notasRep= getCustomRepository(NotasRepository);
     const notas=await notasRep.findNotaAlumnos(parseInt(alumno),parseInt(materia),parseInt(anio),tipo,parseInt(trimestre));
-    return res.json(notas);
+    if(notas.length>0){
+        return res.json(notas);
+    }else{
+        return ['0','0','0']
+    }
+    
 }
 
 export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
