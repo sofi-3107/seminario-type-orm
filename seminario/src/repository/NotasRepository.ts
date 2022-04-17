@@ -12,7 +12,7 @@ export class NotasRepository extends Repository<Nota>{
             .innerJoinAndSelect("n.alumno","alumno","alumno.id=:alumno",{alumno:alumno})
             .select(["n.trimestre","n.calificacion","n.condicionMateria","alumno.apellido","alumno.nombre","materia.nombre"])
             .where("n.cicloLectivo=:cl AND n.tipo=:tipo AND n.trimestre=:trimestre",{cl:anio,tipo:tipo,trimestre:trimestre})
-            .getMany();
+            .getOne();
     }
     findNotasAlumnos(alumno:number,materia:number,anio:number,tipo:string){
         return this.createQueryBuilder("n")

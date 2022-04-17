@@ -36,12 +36,8 @@ export const getNota=async(req:Request,res:Response)=>{
     const {anio,materia,alumno,tipo,trimestre}=req.params;
     console.log(req.params);
     const notasRep= getCustomRepository(NotasRepository);
-    const notas=await notasRep.findNotaAlumnos(parseInt(alumno),parseInt(materia),parseInt(anio),tipo,parseInt(trimestre));
-    if(notas.length>0){
-        return res.json(notas);
-    }else{
-        return ['0','0','0']
-    }
+    const nota=await notasRep.findNotaAlumnos(parseInt(alumno),parseInt(materia),parseInt(anio),tipo,parseInt(trimestre));
+    return nota || 0;
     
 }
 
@@ -51,6 +47,7 @@ export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
     /* En el mismo cuerpo del body, en el objeto nota pondremos el tipo
     y se puede usar este mismo método para las mesas de examen y notas normales
     desde la app se manejara el atirbuto tipo */
+    console.log('llego por red'+req.body);
     const calif=await getRepository(Nota).save(req.body);
      return res.json(calif);
 }
