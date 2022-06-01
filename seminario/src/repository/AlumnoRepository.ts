@@ -26,7 +26,7 @@ export class AlumnoRepository extends Repository<Alumno>{
        
     }
 
-    //Lista del docente luego de seleccionar la materia en el drawer
+    //Lista de alumnos para uso del docente luego de seleccionar la materia en el drawer
     findAlumnosPorCadaMateria(docente:number,materia:number,cl:number){
         return this.find({
             join:{

@@ -10,7 +10,7 @@ export class CursoRepository extends Repository<Curso>{
         return this.createQueryBuilder("c")
                     .innerJoinAndSelect("c.preceptor","preceptor","preceptor.id=:preceptor",{preceptor:preceptor})
                     .innerJoinAndSelect("c.nivel","nivel")
-                    .select(["c.division","c.turno","c.nivel","nivel.nivel","nivel.ciclo"])
+                    .select(["c.id","c.division","c.turno","c.nivel","nivel.nivel","nivel.ciclo"])
                     .getMany()
     }
 
