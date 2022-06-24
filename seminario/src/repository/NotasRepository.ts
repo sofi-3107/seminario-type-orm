@@ -31,4 +31,23 @@ export class NotasRepository extends Repository<Nota>{
             .where("n.cicloLectivo=:cl AND n.tipo=:tipo",{cl:anio,tipo:tipo})
             .getMany();
     }
+
+    //Cuenta la cantidad de alumnos desaprobados o aprobados de una materia en particular, para la app docente
+
+    getCantidadAlumnosAprobados(cl:number,docente:number,materia:number,trimestre:number,condicion:boolean){
+        var cdn=()=>{if(condicion){return ">=6"}else{return "<=6"}}        
+        return this.createQueryBuilder("n")
+            .innerJoinAndSelect("n.alumno","alumno")
+            .innerJoinAndSelect("alumno.cursos","alumnoCurso")
+            .innerJoinAndSelect("alumnoCurso.curso","curso")
+            .innerJoinAndSelect("curso.nivel","cursoNivel")
+            .innerJoinAndSelect("cursoNivel.materias","planEstudio")
+            .innerJoinAndSelect("planEstudio.docentes","docenteMateria","docenteMateria.materia=:m",{m:materia})
+            .innerJoinAndSelect("docenteMateria.docente","docente")
+           // .where("n.calificacion "+cdn+"AND n.trimestre=:t"+"AND docente.id=:id",{t:trimestre,id:docente})
+           .where("n.calificacion <=6 AND n.trimestre=:t AND docente.id=:id",{t:trimestre,id:docente})
+            .getMany()
+
+
+    }
 }

@@ -3,8 +3,7 @@ import {createConnection, getCustomRepository} from "typeorm";
 import express from "express";
 import cors from "cors";
 import docenteRouter from "./routes/docente.routes";
-import { MesaExamenRepository } from "./repository/MesaExamenRepository";
-import { TipoMesa } from "./entity/MesaExamen";
+import { NotasRepository } from "./repository/NotasRepository";
 import alumnoRouter from "./routes/alumno.routes";
 import preceptorRouter from "./routes/preceptor.routes";
 
@@ -25,7 +24,9 @@ app.use('/alumno',alumnoRouter);
 
 
 createConnection().then(async connection => {
-
+    const cantidadAprobados=await getCustomRepository(NotasRepository).getCantidadAlumnosAprobados(2022,1,3,1,true);
+        //console.log("cantidad aprobados: "+cantidadAprobados);
+        cantidadAprobados.forEach(()=>console.log)
   
  
 }).catch(error => console.log(error));

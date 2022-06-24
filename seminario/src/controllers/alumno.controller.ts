@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import { resolve } from "path";
-import { getCustomRepository, getRepository } from "typeorm";
+import { getCustomRepository } from "typeorm";
 import { MateriaRepository } from "../repository/MateriaRepository";
 import { MesaExamenRepository } from "../repository/MesaExamenRepository";
 import { NotasRepository } from "../repository/NotasRepository";
