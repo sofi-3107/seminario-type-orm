@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Alumno } from "./Alumno";
+import { Docente } from "./Docente";
 import { Materia } from "./Materia";
 
 
@@ -54,5 +55,8 @@ export class Nota{
         default:CondicionMateria.DESAPROBADO
     })
     condicionMateria:CondicionMateria;
+
+    @ManyToOne(()=>Docente,docente=>docente.notas)
+    docente:Docente;
 
 }

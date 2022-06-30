@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from "typeorm";
 import { DocenteMateria } from "./DocenteMateria";
 import { DocenteMesaExamen } from "./DocenteMesaExamen";
+import { Nota } from "./Nota";
 import { Persona } from "./Persona";
 
 @Entity()
@@ -12,6 +13,9 @@ export class Docente extends Persona{
 
     @OneToMany(()=>DocenteMesaExamen,docenteMesaExamen=>docenteMesaExamen.docente)
     mesasExamen:DocenteMesaExamen[];
+
+    @OneToMany(()=>Nota,nota=>nota.docente)
+    notas:Nota[];
 
 
 }
