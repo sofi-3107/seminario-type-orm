@@ -6,6 +6,8 @@ import docenteRouter from "./routes/docente.routes";
 import { NotasRepository } from "./repository/NotasRepository";
 import alumnoRouter from "./routes/alumno.routes";
 import preceptorRouter from "./routes/preceptor.routes";
+import { Encuesta } from "./entity/Encuesta";
+import { EncuestaRepository } from "./repository/EncuestaRepository";
 
 //import morgan from "morgan";
 
@@ -28,9 +30,12 @@ createConnection().then(async connection => {
         console.log(cantidadAprobados);*/
         
 
-    const cantMateriasAprobAlumno1= await getCustomRepository(NotasRepository).getCantidadMateriasAprobadasODesaprobadas(2022,1,5,'>=6');
-    //cantMateriasAprobAlumno1.forEach((e)=>console.log(e))
-    console.log("cant materias aprobadas: "+cantMateriasAprobAlumno1);
+    /*const cantMateriasAprobAlumno1= await getCustomRepository(NotasRepository).getCantidadMateriasAprobadasODesaprobadas(2022,1,5,'>=6');
+    cantMateriasAprobAlumno1.forEach((e)=>console.log(e))
+    console.log("cant materias aprobadas: "+cantMateriasAprobAlumno1);*/
+
+    const encuestasPedrazaIngles=await getCustomRepository(EncuestaRepository).getCantidadEnuestaDocenteMateria(2022,1,11);
+    encuestasPedrazaIngles.forEach(console.log);
  
 }).catch(error => console.log(error));
 

@@ -5,47 +5,17 @@ import { Encuesta } from "../entity/Encuesta";
 export class EncuestaRepository extends Repository<Encuesta>{
     
     
-    public traerEncuestaPorDocenteYMaterias(id:number,cicloLectivo:number) {
-  
-            
-             return  this.find({
-                join:{
-                    alias:"en",
-                    innerJoinAndSelect:{
-                        pregunta:"en.pregunta",
-                        docenteMateria:"en.docenteMateria",
-                        materia:"docenteMateria.materia",
-                        d:"docenteMateria.docente"
-                    }
-                },
-                where:(qb:any)=>{qb
-                    .where("d.id=:id",{id:id})
-                    .andWhere("docenteMateria.cicloLectivo=:cl",{cl:cicloLectivo});
-                }
-            })
-
+    getCantidadEnuestaDocenteMateria(cl:number,docente:number,materia:number){
+        return this.createQueryBuilder("e")
+            .innerJoin("e.docenteMateria","docenteMateria")
+            .innerJoin("docenteMateria.docente","docente")
+            .innerJoin("docenteMateria.materia","materia")
+            .innerJoin("e.pregunta","pregunta")
+            .select(["pregunta.id","e.cantidad"])
+            .where("e.cicloLectivo=:cl AND materia.id=:materia AND docente.id=:docente",{cl:cl,docente:docente,materia:materia} )
+            .getMany();
     }
 
-    //Acceso del alumno a las encuestas por materia
-     traerEncuestaPorCursoYMaterias(idCurso:number,cicloLectivo:number) {
 
-              return this.find({
-                join:{
-                    alias:"en",
-                    innerJoinAndSelect:{
-                        pregunta:"en.pregunta",
-                        docenteMateria:"en.docenteMateria",
-                        materia:"docenteMateria.materia",
-                        curso:"materia.cursos"
-                    }
-                },
-                where:(qb:any)=>{
-                   qb.where("curso.id=:id",{id:idCurso})
-                     .andWhere("curso.cicloLectivo=:cl",{cl:cicloLectivo});
-                }
-            });
-
-  
-    }
 
 }
