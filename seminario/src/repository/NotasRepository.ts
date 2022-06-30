@@ -32,20 +32,22 @@ export class NotasRepository extends Repository<Nota>{
             .getMany();
     }
 
-    //Cuenta la cantidad de alumnos desaprobados o aprobados de una materia en particular, para la app docente
-
-    getCantidadAlumnosAprobados(cl:number,materia:number,trimestre:number,curso:number){
-           
+    //Devuelve la cantidad de alumnos aprobados o desaprobados por materia de x docente para x trimestre y x ciclo lectivo
+    getCantidadAlumnosAprobadosODesaprobados(cl:number,materia:number,docente:number,trimestre:number,condicion:string){
         return this.createQueryBuilder("n")
-            .innerJoin("n.alumno","alumno")
-            .innerJoin("n.materia","materia")
-            .innerJoin("materia.docentes","docenteMateria")
-            .innerJoin("docenteMateria.curso","curso")
-            .innerJoin("docenteMateria.docente","docente")
-            .select(["curso.id","alumno.id","n.calificacion","materia.id","docenteMateria","docenteMateria.curso","docenteMateria.docente"])
-            .where("curso.id=:curso AND materia.id=:mat AND n.cicloLectivo=:cl AND n.trimestre=:t",{t:trimestre,cl:cl,curso:curso,mat:materia})
-            .getMany()
+            .innerJoinAndSelect("n.materia","materia")
+            .innerJoinAndSelect("n.docente","docente")
+            .where(`n.trimestre=:t AND n.cicloLectivo=:cl AND materia.id=:m AND docente.id=:d AND n.calificacion${condicion}`,{t:trimestre,cl:cl,m:materia,d:docente})
+            .getCount()
+    }
 
+    //Devuelve para el alumno cantidad de materias aprobadas y desaprobadas
+
+    getCantidadMateriasAprobadasODesaprobadas(cl:number,trimestre:number,alumno:number,condicion:string){
+        return this.createQueryBuilder("n")
+            .leftJoinAndSelect("n.alumno","alumno")
+            .where(`n.cicloLectivo=:cl AND n.calificacion${condicion} AND trimestre=:tri AND alumno.id=:al`,{cl:cl,tri:trimestre,al:alumno})
+            .getCount();
 
     }
 }

@@ -24,10 +24,13 @@ app.use('/alumno',alumnoRouter);
 
 
 createConnection().then(async connection => {
-    const cantidadAprobados=await getCustomRepository(NotasRepository).getCantidadAlumnosAprobados(2022,11,1,1);
-        //console.log("cantidad aprobados: "+cantidadAprobados);
-        cantidadAprobados.forEach((e)=>console.log(e.materia.docentes))
-  
+   /* const cantidadAprobados=await getCustomRepository(NotasRepository).getCantidadAlumnosAprobadosODesaprobados(2022,3,2,1,'<6');
+        console.log(cantidadAprobados);*/
+        
+
+    const cantMateriasAprobAlumno1= await getCustomRepository(NotasRepository).getCantidadMateriasAprobadasODesaprobadas(2022,1,5,'>=6');
+    //cantMateriasAprobAlumno1.forEach((e)=>console.log(e))
+    console.log("cant materias aprobadas: "+cantMateriasAprobAlumno1);
  
 }).catch(error => console.log(error));
 
