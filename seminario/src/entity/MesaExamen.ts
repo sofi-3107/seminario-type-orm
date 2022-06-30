@@ -2,7 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGen
 import { Alumno } from "./Alumno";
 import { DocenteMesaExamen } from "./DocenteMesaExamen";
 import { Materia } from "./Materia";
-import { TipoNota } from "./Nota";
+import { Nota, TipoNota } from "./Nota";
 
 export enum TipoMesa{
     MESA_EXAMEN_REGULAR="examen regular",
@@ -47,4 +47,7 @@ export class MesaExamen {
 
      @Column("int")
      anio:number;
+
+     @OneToMany(()=>Nota,nota=>nota.mesaExamen)
+     notas:Nota[];
 }

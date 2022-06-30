@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {createConnection, getCustomRepository} from "typeorm";
+import {createConnection, getCustomRepository, getRepository} from "typeorm";
 import express from "express";
 import cors from "cors";
 import docenteRouter from "./routes/docente.routes";
@@ -8,6 +8,7 @@ import alumnoRouter from "./routes/alumno.routes";
 import preceptorRouter from "./routes/preceptor.routes";
 import { Encuesta } from "./entity/Encuesta";
 import { EncuestaRepository } from "./repository/EncuestaRepository";
+import { AlumnoRepository } from "./repository/AlumnoRepository";
 
 //import morgan from "morgan";
 
@@ -26,17 +27,10 @@ app.use('/alumno',alumnoRouter);
 
 
 createConnection().then(async connection => {
-   /* const cantidadAprobados=await getCustomRepository(NotasRepository).getCantidadAlumnosAprobadosODesaprobados(2022,3,2,1,'<6');
-        console.log(cantidadAprobados);*/
-        
 
-    /*const cantMateriasAprobAlumno1= await getCustomRepository(NotasRepository).getCantidadMateriasAprobadasODesaprobadas(2022,1,5,'>=6');
-    cantMateriasAprobAlumno1.forEach((e)=>console.log(e))
-    console.log("cant materias aprobadas: "+cantMateriasAprobAlumno1);*/
-
-    const encuestasPedrazaIngles=await getCustomRepository(EncuestaRepository).getCantidadEnuestaDocenteMateria(2022,1,11);
-    encuestasPedrazaIngles.forEach(console.log);
- 
+    const alumnosPedrazaIngles=await getCustomRepository(AlumnoRepository).findAlumnosPorCadaMateria(2022,2,11);
+ alumnosPedrazaIngles.length>0??alumnosPedrazaIngles.forEach(console.log);
+ console.log('resultado longitud arreglo: '+alumnosPedrazaIngles.length)
 }).catch(error => console.log(error));
 
 

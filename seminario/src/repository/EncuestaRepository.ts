@@ -4,7 +4,7 @@ import { Encuesta } from "../entity/Encuesta";
 @EntityRepository(Encuesta)
 export class EncuestaRepository extends Repository<Encuesta>{
     
-    
+    //Devuelve los registros de encuesta con la cantidad de cada pregunta pra x docente y materia en cicloLectivo indicado
     getCantidadEnuestaDocenteMateria(cl:number,docente:number,materia:number){
         return this.createQueryBuilder("e")
             .innerJoin("e.docenteMateria","docenteMateria")
@@ -13,7 +13,8 @@ export class EncuestaRepository extends Repository<Encuesta>{
             .innerJoin("e.pregunta","pregunta")
             .select(["pregunta.id","e.cantidad"])
             .where("e.cicloLectivo=:cl AND materia.id=:materia AND docente.id=:docente",{cl:cl,docente:docente,materia:materia} )
-            .getMany();
+            .groupBy("pregunta.id")
+            .getMany();         
     }
 
 

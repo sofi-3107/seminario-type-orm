@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "t
 import { Alumno } from "./Alumno";
 import { Docente } from "./Docente";
 import { Materia } from "./Materia";
+import { MesaExamen } from "./MesaExamen";
 
 
 export enum TipoNota{
@@ -58,5 +59,8 @@ export class Nota{
 
     @ManyToOne(()=>Docente,docente=>docente.notas)
     docente:Docente;
+
+    @ManyToOne(()=>MesaExamen,mesaExamen=>mesaExamen.notas,{nullable:true})
+    mesaExamen:MesaExamen;
 
 }
