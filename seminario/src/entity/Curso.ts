@@ -1,9 +1,10 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { IsInt, Length} from "class-validator";
 import { AlumnoCurso } from "./AlumnoCurso";
 import { Preceptor } from "./Preceptor";
 import { Materia } from "./Materia";
 import { CursoNivel } from "./CursoNivel";
+import { DocenteMateria } from "./DocenteMateria";
 
 @Entity()
 export class Curso {
@@ -27,5 +28,8 @@ export class Curso {
     @ManyToOne(()=>CursoNivel,cursoNivel=>cursoNivel.cursos)
     @JoinColumn({name:"curso_nivel"})
     nivel:CursoNivel;
+
+    @OneToMany(()=>DocenteMateria,docenteMateria=>docenteMateria.curso)
+    docenteMaterias:DocenteMateria[];
 
 }

@@ -34,18 +34,16 @@ export class NotasRepository extends Repository<Nota>{
 
     //Cuenta la cantidad de alumnos desaprobados o aprobados de una materia en particular, para la app docente
 
-    getCantidadAlumnosAprobados(cl:number,docente:number,materia:number,trimestre:number,condicion:boolean){
-        var cdn=()=>{if(condicion){return ">=6"}else{return "<=6"}}        
+    getCantidadAlumnosAprobados(cl:number,materia:number,trimestre:number,curso:number){
+           
         return this.createQueryBuilder("n")
-            .innerJoinAndSelect("n.alumno","alumno")
-            .innerJoinAndSelect("alumno.cursos","alumnoCurso")
-            .innerJoinAndSelect("alumnoCurso.curso","curso")
-            .innerJoinAndSelect("curso.nivel","cursoNivel")
-            .innerJoinAndSelect("cursoNivel.materias","planEstudio")
-            .innerJoinAndSelect("planEstudio.docentes","docenteMateria","docenteMateria.materia=:m",{m:materia})
-            .innerJoinAndSelect("docenteMateria.docente","docente")
-           // .where("n.calificacion "+cdn+"AND n.trimestre=:t"+"AND docente.id=:id",{t:trimestre,id:docente})
-           .where("n.calificacion <=6 AND n.trimestre=:t AND docente.id=:id",{t:trimestre,id:docente})
+            .innerJoin("n.alumno","alumno")
+            .innerJoin("n.materia","materia")
+            .innerJoin("materia.docentes","docenteMateria")
+            .innerJoin("docenteMateria.curso","curso")
+            .innerJoin("docenteMateria.docente","docente")
+            .select(["curso.id","alumno.id","n.calificacion","materia.id","docenteMateria","docenteMateria.curso","docenteMateria.docente"])
+            .where("curso.id=:curso AND materia.id=:mat AND n.cicloLectivo=:cl AND n.trimestre=:t",{t:trimestre,cl:cl,curso:curso,mat:materia})
             .getMany()
 
 

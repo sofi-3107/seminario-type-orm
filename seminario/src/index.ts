@@ -24,9 +24,9 @@ app.use('/alumno',alumnoRouter);
 
 
 createConnection().then(async connection => {
-    const cantidadAprobados=await getCustomRepository(NotasRepository).getCantidadAlumnosAprobados(2022,1,3,1,true);
+    const cantidadAprobados=await getCustomRepository(NotasRepository).getCantidadAlumnosAprobados(2022,11,1,1);
         //console.log("cantidad aprobados: "+cantidadAprobados);
-        cantidadAprobados.forEach(()=>console.log)
+        cantidadAprobados.forEach((e)=>console.log(e.materia.docentes))
   
  
 }).catch(error => console.log(error));
