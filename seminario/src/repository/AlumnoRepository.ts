@@ -49,15 +49,15 @@ export class AlumnoRepository extends Repository<Alumno>{
         });
     }
 */
-    findAlumnosPorCadaMateria(cl:number,docente:number,materia:number){
+    findAlumnosPorCadaMateria(docente:number,materia:number,cl:number){
         return this.createQueryBuilder("a")
-            .innerJoin("a.cursos","alumnoCurso")
-            .innerJoin("alumnoCurso.curso","curso")
-            .innerJoin("curso.docenteMaterias","docenteMateria")
-            .innerJoin("docenteMateria.docente","docente")
-            .innerJoin("docenteMateria.materia","materia")
-            .select(["a.id","a.apellido","a.nombre"])
-            .where("docente.id=:did AND materia.id=:mid AND docenteMateria.cicloLectivo=:clid",{clid:cl,mid:materia,did:docente})
+            .leftJoin("a.cursos","alumnoCurso")
+            .leftJoin("alumnoCurso.curso","curso")
+            .leftJoin("curso.docenteMaterias","docenteMateria")
+            .leftJoin("docenteMateria.docente","docente")
+            .leftJoin("docenteMateria.materia","materia")
+            .select(["a.id","a.apellido","a.nombre","docente.id","materia.id","docenteMateria.cicloLectivo"])
+            .where("docente.id=:did AND materia.id=:mid AND docenteMateria.cicloLectivo=:clid",{did:docente,mid:materia,clid:cl})
             .getMany();
 
     }
