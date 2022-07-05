@@ -28,9 +28,9 @@ app.use('/alumno',alumnoRouter);
 
 createConnection().then(async connection => {
 
-    const alumnosPedrazaIngles=await getCustomRepository(AlumnoRepository).findAlumnosPorCadaMateria(1,11,2022);
+    /*const alumnosPedrazaIngles=await getCustomRepository(AlumnoRepository).findAlumnosPorCadaMateria(1,11,2022);
     alumnosPedrazaIngles.forEach(console.log);
-    console.log('resultado longitud arreglo: '+alumnosPedrazaIngles.length)
+    console.log('resultado longitud arreglo: '+alumnosPedrazaIngles.length)*/
 }).catch(error => console.log(error));
 
 

@@ -12,8 +12,9 @@ export class AlumnoRepository extends Repository<Alumno>{
             join:{
                 alias:"al",
                 innerJoinAndSelect:{
-                    asistencias:"al.asistencias",
-                    curso:"al.cursoInscripciones"
+                    //asistencias:"al.asistencias",
+                    cursoAlumno:"al.curso",
+                    curso:"cursoAlumno.curso"
                 }
             },
             where:(qb:any)=>{
