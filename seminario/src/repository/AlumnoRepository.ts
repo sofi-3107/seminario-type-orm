@@ -6,13 +6,13 @@ export class AlumnoRepository extends Repository<Alumno>{
     
 
     //Lista de alumnos de cada curso con acceso a las asistencias de x periodo lectivo
-    findByCurso(idCurso:number,cicloLectivo:number){
+   /* findByCurso(idCurso:number,cicloLectivo:number){
 
         return this.find({
             join:{
                 alias:"al",
                 innerJoinAndSelect:{
-                    //asistencias:"al.asistencias",
+                    asistencias:"al.asistencias",
                     cursoAlumno:"al.curso",
                     curso:"cursoAlumno.curso"
                 }
@@ -25,6 +25,15 @@ export class AlumnoRepository extends Repository<Alumno>{
         });
 
        
+    }*/
+    findByCurso(idCurso:number,cicloLectivo:number){
+        return this.createQueryBuilder("al")
+            .innerJoin("a.cursos","alumnoCurso")
+            .innerJoin("alumnoCurso.curso","curso")
+            .innerJoin("a.asistencia","asistencia")
+            .select(["a.apellido","a.nombre","curso.id"])
+            .where("curso.id=:cid AND alumnoCurso.cicloLectivo=:cl",{cid:idCurso,cl:cicloLectivo})
+            .getMany();
     }
 
     /*Lista de alumnos para uso del docente luego de seleccionar la materia en el drawer
@@ -106,11 +115,11 @@ export class AlumnoRepository extends Repository<Alumno>{
     //Lista de Alumnos por curso para guardar su asistencia, para el envio de sms 
     findAlumnosPorCursoAsistencia(curso:number,cl:number){
         return this.createQueryBuilder("a")
-                    .innerJoinAndSelect("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
-                    .innerJoinAndSelect("cursos.curso","curso","curso.id=:curso",{curso:curso})
-                    .innerJoinAndSelect("a.tutor","tutor")
-                    .innerJoinAndSelect("a.asistencias","asistencias")
-                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono"])
+                    .innerJoin("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
+                    .innerJoin("cursos.curso","curso","curso.id=:curso",{curso:curso})
+                    .leftJoin("a.asistencias","asistencia")
+                    .innerJoin("a.tutor","tutor") 
+                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo"])
                     .getMany();
     }
 
