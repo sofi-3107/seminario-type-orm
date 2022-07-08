@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { getAlumnosPorCurso, getCursosByPreceptor, getInasistenciasAlumnosCurso, tomarAsistencia } from "../controllers/preceptor.controller";
+import { getAlumnosPorCurso, getCursosByPreceptor, getInasistenciasAlumnosCurso, getNotasAlumnoCursoTodasMaterias, tomarAsistencia } from "../controllers/preceptor.controller";
 
 const preceptorRouter=Router();
 
@@ -16,7 +16,7 @@ preceptorRouter.post("/toma-asistencia/",tomarAsistencia);
 
 preceptorRouter.get('/inasistencias/:curso/:cl',getInasistenciasAlumnosCurso);
 
-
-
+//Notas de un curso entero todas las materias para el grafico de barras 
+preceptorRouter.get('/notas/:curso/:cl/:trimestre',getNotasAlumnoCursoTodasMaterias);
 
 export default preceptorRouter;

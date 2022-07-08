@@ -5,6 +5,7 @@ import { Asistencia } from "../entity/Asistencia";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
 import { AsistenciaRepository } from "../repository/AsistenciaRepository";
 import { CursoRepository } from "../repository/CursoRepository";
+import { NotasRepository } from "../repository/NotasRepository";
 
 
 //Cursos del preceptpr
@@ -35,4 +36,12 @@ export const getInasistenciasAlumnosCurso=async(req:Request,res:Response)=>{
     const alumnos= await getCustomRepository(AsistenciaRepository)
                         .getRawCantidadInasistenciasCurso(parseInt(curso),parseInt(cl));
     return res.json(alumnos);
+}
+
+//Lista de alumnos con acceso a sus notas de un curso x y ciclo lectivo x
+export const getNotasAlumnoCursoTodasMaterias=async(req:Request,res:Response)=>{
+    const {curso,cl,trimestre}=req.params;
+    const notasAlumnosCurso = await getCustomRepository(NotasRepository)
+                            .getNotasAlumnosCursoGraficoBarras(parseInt(curso),parseInt(cl),parseInt(trimestre));
+    return res.json(notasAlumnosCurso);
 }
