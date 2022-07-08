@@ -5,6 +5,7 @@ import { Preceptor } from "./Preceptor";
 import { Materia } from "./Materia";
 import { CursoNivel } from "./CursoNivel";
 import { DocenteMateria } from "./DocenteMateria";
+import { Nota } from "./Nota";
 
 @Entity()
 export class Curso {
@@ -31,5 +32,8 @@ export class Curso {
 
     @OneToMany(()=>DocenteMateria,docenteMateria=>docenteMateria.curso)
     docenteMaterias:DocenteMateria[];
+
+    @OneToMany(()=>Nota,nota=>nota.curso)
+    notas:Nota[];
 
 }

@@ -48,6 +48,15 @@ export class NotasRepository extends Repository<Nota>{
             .leftJoinAndSelect("n.alumno","alumno")
             .where(`n.cicloLectivo=:cl AND n.calificacion${condicion} AND trimestre=:tri AND alumno.id=:al`,{cl:cl,tri:trimestre,al:alumno})
             .getCount();
+    }
+
+    getNotasAlumnosCursoGraficoBarras(curso:number,cl:number,trimestre:number){
+        return this.createQueryBuilder("n")
+            .innerJoin("n.curso","curso")
+            .innerJoin("n.materia","materia")
+            .select(["materia.nombre","n.condicionMateria","n.trimestre","curso.id"])
+            .where("curso.id=:c AND n.trimestre=:t AND n.cicloLectivo=:cl",{c:curso,t:trimestre,cl:cl})
+            .getMany();
 
     }
 }

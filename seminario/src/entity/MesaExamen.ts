@@ -11,7 +11,7 @@ export enum TipoMesa{
 }
 
 
-
+        
 
 @Entity()
 export class MesaExamen {

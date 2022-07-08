@@ -9,6 +9,7 @@ import preceptorRouter from "./routes/preceptor.routes";
 import { Encuesta } from "./entity/Encuesta";
 import { EncuestaRepository } from "./repository/EncuestaRepository";
 import { AlumnoRepository } from "./repository/AlumnoRepository";
+import { CursoNivelRepository } from "./repository/CursoNivelRepository";
 
 //import morgan from "morgan";
 
@@ -28,9 +29,12 @@ app.use('/alumno',alumnoRouter);
 
 createConnection().then(async connection => {
 
-    /*const alumnosPedrazaIngles=await getCustomRepository(AlumnoRepository).findAlumnosPorCadaMateria(1,11,2022);
-    alumnosPedrazaIngles.forEach(console.log);
-    console.log('resultado longitud arreglo: '+alumnosPedrazaIngles.length)*/
+   const materiasNotas= await getCustomRepository(NotasRepository)
+   .getNotasAlumnosCursoGraficoBarras(5,2022,1);
+   console.log(materiasNotas);
+   
+    
+
 }).catch(error => console.log(error));
 
 

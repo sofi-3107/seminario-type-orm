@@ -1,5 +1,7 @@
+import { cursorTo } from "readline";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Alumno } from "./Alumno";
+import { Curso } from "./Curso";
 import { Docente } from "./Docente";
 import { Materia } from "./Materia";
 import { MesaExamen } from "./MesaExamen";
@@ -59,6 +61,9 @@ export class Nota{
 
     @ManyToOne(()=>Docente,docente=>docente.notas)
     docente:Docente;
+
+    @ManyToOne(()=>Curso,curso=>curso.notas)
+    curso:Curso;
 
     @ManyToOne(()=>MesaExamen,mesaExamen=>mesaExamen.notas,{nullable:true})
     mesaExamen:MesaExamen;

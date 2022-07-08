@@ -6,26 +6,7 @@ export class AlumnoRepository extends Repository<Alumno>{
     
 
     //Lista de alumnos de cada curso con acceso a las asistencias de x periodo lectivo
-   /* findByCurso(idCurso:number,cicloLectivo:number){
 
-        return this.find({
-            join:{
-                alias:"al",
-                innerJoinAndSelect:{
-                    asistencias:"al.asistencias",
-                    cursoAlumno:"al.curso",
-                    curso:"cursoAlumno.curso"
-                }
-            },
-            where:(qb:any)=>{
-                qb
-                .where("curso.id=:id",{id:idCurso})
-                .andWhere("curso.cicloLectivo=:c",{c:cicloLectivo})             
-            }
-        });
-
-       
-    }*/
     findByCurso(idCurso:number,cicloLectivo:number){
         return this.createQueryBuilder("al")
             .innerJoin("a.cursos","alumnoCurso")
@@ -36,29 +17,7 @@ export class AlumnoRepository extends Repository<Alumno>{
             .getMany();
     }
 
-    /*Lista de alumnos para uso del docente luego de seleccionar la materia en el drawer
-    findAlumnosPorCadaMateria(docente:number,materia:number,cl:number){
-        return this.find({
-            join:{
-                alias:"a",
-                innerJoinAndSelect:{
-                    alumnoCurso:"a.cursos",
-                    curso:"alumnoCurso.curso",
-                    cursoNivel:"curso.nivel",
-                    materia:"cursoNivel.materias",
-                    docenteMateria:"materia.docentes",
-                    docente:"docenteMateria.docente"
-                }
-            },
-            where:(qb:any)=>{
-                qb
-                    .where("docente.id=:idDocente",{idDocente:docente})
-                    .andWhere("docenteMateria.cicloLectivo=:cl",{cl:cl})
-                    .andWhere("materia.id=:idMateria",{idMateria:materia})
-            }
-        });
-    }
-*/
+
     findAlumnosPorCadaMateria(docente:number,materia:number,cl:number){
         return this.createQueryBuilder("a")
             .leftJoin("a.cursos","alumnoCurso")
@@ -122,6 +81,8 @@ export class AlumnoRepository extends Repository<Alumno>{
                     .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.estado"])
                     .getMany();
     }
+
+
 
 
 
