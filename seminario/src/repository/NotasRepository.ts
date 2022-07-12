@@ -59,4 +59,17 @@ export class NotasRepository extends Repository<Nota>{
             .getMany();
 
     }
+
+
+    getCantidadAprobadosDesaprobadosPorMateria(curso:number,cl:number,trimestre:number,condicion:string){
+        return this.query(
+            `SELECT COUNT(n.condicionMateria) AS ${condicion}s, m.nombre AS materia FROM nota As n
+                JOIN materia AS m ON n.materiaId=m.id
+                JOIN curso As c ON n.cursoId=c.id
+            WHERE n.cicloLectivo=${cl} AND n.trimestre=${trimestre} AND n.condicionMateria='${condicion}' AND n.cursoId=${curso}
+            GROUP BY m.nombre;`
+        );
+    }
+
+    /** n.condicionMateria='${condicion}' */
 }

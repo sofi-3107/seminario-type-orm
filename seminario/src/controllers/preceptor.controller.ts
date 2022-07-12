@@ -38,10 +38,17 @@ export const getInasistenciasAlumnosCurso=async(req:Request,res:Response)=>{
     return res.json(alumnos);
 }
 
-//Lista de alumnos con acceso a sus notas de un curso x y ciclo lectivo x
+/*Lista de alumnos con acceso a sus notas de un curso x y ciclo lectivo x
 export const getNotasAlumnoCursoTodasMaterias=async(req:Request,res:Response)=>{
     const {curso,cl,trimestre}=req.params;
     const notasAlumnosCurso = await getCustomRepository(NotasRepository)
                             .getNotasAlumnosCursoGraficoBarras(parseInt(curso),parseInt(cl),parseInt(trimestre));
     return res.json(notasAlumnosCurso);
+}*/
+
+export const getNotasAlumnoCursoTodasMaterias=async(req:Request,res:Response)=>{
+    const {curso,cl,trimestre,condicion}=req.params;
+    const notasAlumnosCurso = await getCustomRepository(NotasRepository)
+    .getCantidadAprobadosDesaprobadosPorMateria(parseInt(curso),parseInt(cl),parseInt(trimestre),condicion);
+return res.json(notasAlumnosCurso);
 }

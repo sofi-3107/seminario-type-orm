@@ -17,6 +17,6 @@ preceptorRouter.post("/toma-asistencia/",tomarAsistencia);
 preceptorRouter.get('/inasistencias/:curso/:cl',getInasistenciasAlumnosCurso);
 
 //Notas de un curso entero todas las materias para el grafico de barras 
-preceptorRouter.get('/notas/:curso/:cl/:trimestre',getNotasAlumnoCursoTodasMaterias);
+preceptorRouter.get('/notas/:curso/:cl/:trimestre/:condicion',getNotasAlumnoCursoTodasMaterias);
 
 export default preceptorRouter;
