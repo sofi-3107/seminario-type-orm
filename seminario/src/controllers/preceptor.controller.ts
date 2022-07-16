@@ -27,7 +27,7 @@ export const getAlumnosPorCurso=async(req:Request,res:Response)=>{
 
 export const tomarAsistencia=async(req:Request,res:Response)=>{
    
-    const asistencia= await getRepository(Asistencia).save(req.body);
+    const asistencia= await getRepository(AsistenciaRepository).save(req.body);
     return res.json(asistencia);
 }
 
@@ -38,13 +38,6 @@ export const getInasistenciasAlumnosCurso=async(req:Request,res:Response)=>{
     return res.json(alumnos);
 }
 
-/*Lista de alumnos con acceso a sus notas de un curso x y ciclo lectivo x
-export const getNotasAlumnoCursoTodasMaterias=async(req:Request,res:Response)=>{
-    const {curso,cl,trimestre}=req.params;
-    const notasAlumnosCurso = await getCustomRepository(NotasRepository)
-                            .getNotasAlumnosCursoGraficoBarras(parseInt(curso),parseInt(cl),parseInt(trimestre));
-    return res.json(notasAlumnosCurso);
-}*/
 
 export const getNotasAlumnoCursoTodasMaterias=async(req:Request,res:Response)=>{
     const {curso,cl,trimestre,condicion}=req.params;
