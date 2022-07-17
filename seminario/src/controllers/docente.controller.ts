@@ -84,7 +84,7 @@ export const getRdoEncuestaPorMateria= async(req:Request,res:Response)=>{
     const {docente,materia,cl,trimestre}=req.params;
     const resultadoEncuesta= await getCustomRepository(EncuestaRepository)
         .getDatosEncuestaDocenteMateria(parseInt(cl), parseInt(trimestre),parseInt(docente),parseInt(materia));
-    return res.json(resultadoEncuesta);
+    return res.json(resultadoEncuesta)
     
 }
 

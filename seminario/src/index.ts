@@ -27,9 +27,9 @@ app.use('/alumno',alumnoRouter);
 
 createConnection().then(async connection => {
 
-const encuesta= await getCustomRepository(EncuestaRepository).getDatosEncuestaDocenteMateria(2022,1,1,11);
+//const encuesta= await getCustomRepository(EncuestaRepository).getDatosEncuestaDocenteMateria(2022,1,1,11);
    
-console.log(encuesta);
+//console.log(encuesta);
 
 }).catch(error => console.log(error));
 

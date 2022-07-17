@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { cargarNotasAlumnos, getAlumnosPorMateria, getMateriasAndCurso, getMesasDeExamen, getMesaUnica, getNota, getNotas, getRdoEncuestaPorMateria } from "../controllers/docente.controller";
+import { cargarNotasAlumnos, getAlumnosPorMateria, getAprobadosDesaprobadosPorMateria, getMateriasAndCurso, getMesasDeExamen, getMesaUnica, getNota, getNotas, getRdoEncuestaPorMateria } from "../controllers/docente.controller";
 
 const docenteRouter=Router();
 
@@ -19,6 +19,8 @@ docenteRouter.get('/mesa/:id',getMesaUnica);
 docenteRouter.get('/notas/:alumno/:materia/:anio/:tipo/:trimestre',getNota);
 // Encuesta
 docenteRouter.get('/encuesta/:cl/:trimestre/:docente/:materia',getRdoEncuestaPorMateria);
+//Grafico aprobados desaprobados por materia
+docenteRouter.get('/grafico/:condicion/:materia/:docente/:cl/:trimestre',getAprobadosDesaprobadosPorMateria);
 
 
 export default docenteRouter;

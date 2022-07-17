@@ -71,14 +71,16 @@ export class NotasRepository extends Repository<Nota>{
             GROUP BY m.nombre;`
         );
     }
-    // Grafico de materia del profesor
+    //Grafico de materia del profesor
 
     getCantidadAprobadosDesaprobadosUnaMateria(condicion:string, materia:number, docente:number, cl:number, trimestre:number){
-        return this.query(`SELECT COUNT(n.condicionMateria) AS ${condicion}s,  FROM nota As n
+        return this.query(`SELECT COUNT(*) AS cantidad, n.condicionMateria AS condicion FROM nota As n
         JOIN materia AS m ON n.materiaId=m.id
         JOIN docente AS d ON n.docenteId=d.id
-        WHERE d.id=${docente} AND m.id=${materia} AND n.condicionMateria='${condicion}' AND n.cicloLectivo=${cl} AND n.trimestre=${trimestre}`);
+        WHERE d.id=${docente} AND m.id=${materia} AND n.condicionMateria='${condicion}' AND n.cicloLectivo=${cl} AND n.trimestre=${trimestre} GROUP BY n.condicionMateria`);
     }
+
+
 
 
    
