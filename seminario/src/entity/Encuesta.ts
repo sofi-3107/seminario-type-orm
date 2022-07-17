@@ -21,11 +21,14 @@ export class Encuesta{
     @Column("int")
     trimestre:number;
 
-    @Column("int")
-    cantidad:number;
+    @ManyToOne(()=>Docente,docente=>docente.encuestas)
+    @JoinColumn({name:"id_docente"})
+    docente:Docente;
 
-    @ManyToOne(()=>DocenteMateria,docenteMateria=>docenteMateria.encuestas)
-    docenteMateria:DocenteMateria;
+    @ManyToOne(()=>Materia, materia=>materia.encuestas)
+    @JoinColumn({name:"id_materia"})
+    materia:Materia;
+  
 
     
 

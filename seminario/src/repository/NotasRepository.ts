@@ -1,3 +1,4 @@
+import internal from "stream";
 import { EntityRepository, Repository } from "typeorm";
 import { Nota } from "../entity/Nota";
 
@@ -60,7 +61,7 @@ export class NotasRepository extends Repository<Nota>{
 
     }
 
-
+    //Grafico de barras del preceptor, devuelve todas las materias aprobados o desaprobados, cantidad
     getCantidadAprobadosDesaprobadosPorMateria(curso:number,cl:number,trimestre:number,condicion:string){
         return this.query(
             `SELECT COUNT(n.condicionMateria) AS ${condicion}s, m.nombre AS materia FROM nota As n
@@ -70,6 +71,15 @@ export class NotasRepository extends Repository<Nota>{
             GROUP BY m.nombre;`
         );
     }
+    // Grafico de materia del profesor
 
-    /** n.condicionMateria='${condicion}' */
+    getCantidadAprobadosDesaprobadosUnaMateria(condicion:string, materia:number, docente:number, cl:number, trimestre:number){
+        return this.query(`SELECT COUNT(n.condicionMateria) AS ${condicion}s,  FROM nota As n
+        JOIN materia AS m ON n.materiaId=m.id
+        JOIN docente AS d ON n.docenteId=d.id
+        WHERE d.id=${docente} AND m.id=${materia} AND n.condicionMateria='${condicion}' AND n.cicloLectivo=${cl} AND n.trimestre=${trimestre}`);
+    }
+
+
+   
 }

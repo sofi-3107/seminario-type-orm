@@ -33,8 +33,7 @@ export class DocenteMateria {
     @ManyToOne(()=>Curso,curso=>curso.docenteMaterias)
     curso:Curso;
 
-    @OneToMany(()=>Encuesta,encuesta=>encuesta.docenteMateria)
-    encuestas:Encuesta[];
+  
 
 
 

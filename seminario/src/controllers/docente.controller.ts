@@ -2,6 +2,7 @@ import { Request,Response } from "express";
 import { getCustomRepository, getRepository, Transaction } from "typeorm";
 import { Nota, TipoNota } from "../entity/Nota";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
+import { EncuestaRepository } from "../repository/EncuestaRepository";
 import { MateriaRepository } from "../repository/MateriaRepository";
 import { MesaExamenRepository } from "../repository/MesaExamenRepository";
 import { NotasRepository } from "../repository/NotasRepository";
@@ -70,3 +71,20 @@ export const getMesaUnica=async(req:Request,res:Response)=>{
         .findMesaDeExamenById(parseInt(id));
         return res.json(mesa);
 }
+
+
+export const getAprobadosDesaprobadosPorMateria=async(req:Request,res:Response)=>{
+    const {docente,cl,trimestre,materia,condicion}=req.params;
+    const aprobadosDesaprobados= await getCustomRepository(NotasRepository)
+        .getCantidadAprobadosDesaprobadosUnaMateria(condicion,parseInt(materia),parseInt(docente),parseInt(cl),parseInt(trimestre));
+    return res.json(aprobadosDesaprobados);
+   
+}
+export const getRdoEncuestaPorMateria= async(req:Request,res:Response)=>{
+    const {docente,materia,cl,trimestre}=req.params;
+    const resultadoEncuesta= await getCustomRepository(EncuestaRepository)
+        .getDatosEncuestaDocenteMateria(parseInt(cl), parseInt(trimestre),parseInt(docente),parseInt(materia));
+    return res.json(resultadoEncuesta);
+    
+}
+
