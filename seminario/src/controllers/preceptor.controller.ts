@@ -27,7 +27,7 @@ export const getAlumnosPorCurso=async(req:Request,res:Response)=>{
 
 export const tomarAsistencia=async(req:Request,res:Response)=>{
    
-    const asistencia= await getRepository(AsistenciaRepository).save(req.body);
+    const asistencia= await getRepository(Asistencia).save(req.body);
     return res.json(asistencia);
 }
 
