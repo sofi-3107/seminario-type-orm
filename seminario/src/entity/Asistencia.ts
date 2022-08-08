@@ -18,10 +18,6 @@ export class Asistencia{
     @Column({length:10})
     fecha:string;
 
-    @Column("int",{default:0})
-    tardanza:number;
-
-
     @Column({
         type:"enum"
         ,enum:EstadoAsistencia,

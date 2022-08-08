@@ -28,6 +28,16 @@ export class AsistenciaRepository extends Repository<Asistencia>{
         WHERE al.id=${alumno} AND a.estado='ausente' AND a.cicloLectivo=${cl}`);
     }
 
+    //Datos para el grafico asistencias e inasistencias de alumno ap
+
+    getCantAsistenciasInasistencias(alumno:number,cl:number){
+        
+        return this.query(`SELECT count(*) AS cantidad, a.estado FROM asistencia AS a 
+        JOIN alumno AS al ON a.alumnoId=al.id
+        WHERE al.id=${alumno} AND a.cicloLectivo=${cl} GROUP BY a.estado
+        `);
+    }
+
     //Recuperar cantidad de inasistencias de alumnos de un curso PRECEPTOR APP
 
     getCantidadInasistenciasCurso(curso:number,cl:number){
@@ -40,6 +50,7 @@ export class AsistenciaRepository extends Repository<Asistencia>{
                     .getMany()
     }
 
+    
     getRawCantidadInasistenciasCurso(curso:number,cl:number){
         return this.query(`SELECT COUNT(a.fecha) AS inasistencias ,al.nombre, al.apellido,al.id
         FROM asistencia As a JOIN alumno AS al ON a.alumnoId=al.id
