@@ -1,5 +1,6 @@
 import { Request,Response } from "express";
 import { resolve } from "path";
+import { json } from "stream/consumers";
 import { getCustomRepository, getRepository } from "typeorm";
 import { Asistencia } from "../entity/Asistencia";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
@@ -30,6 +31,21 @@ export const tomarAsistencia=async(req:Request,res:Response)=>{
     const asistencia= await getRepository(Asistencia).save(req.body);
     return res.json(asistencia);
 }
+
+export const comprobarAsistencia= async (req:Request,res:Response)=>{
+    const {id,fecha}=req.params;
+    const asistencia=await getRepository(Asistencia).findOne({
+        where:[{id:id},{fecha:fecha}],
+    });
+
+    if(asistencia!=null){
+        return res.json(asistencia);
+    }
+    else{
+        return res.json('ausente');
+    }
+}   
+
 
 export const getInasistenciasAlumnosCurso=async(req:Request,res:Response)=>{
         const {curso,cl}=req.params;
