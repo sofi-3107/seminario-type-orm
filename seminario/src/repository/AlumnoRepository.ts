@@ -74,11 +74,11 @@ export class AlumnoRepository extends Repository<Alumno>{
     //Lista de Alumnos por curso para guardar su asistencia, para el envio de sms 
     findAlumnosPorCursoAsistencia(curso:number,cl:number,fecha:string){
         return this.createQueryBuilder("a")
-                    .innerJoin("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
+                    .leftJoin("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
                     .innerJoin("cursos.curso","curso","curso.id=:curso",{curso:curso})
                     .leftJoin("a.asistencias","asistencia","asistencia.fecha=:f",{f:fecha})
-                    .innerJoin("a.tutor","tutor") 
-                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.fecha","asistencia.estado"])
+                    .leftJoin("a.tutor","tutor") 
+                    .select(["a.id","a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.fecha","asistencia.estado"])
                     .getMany();
     }
 

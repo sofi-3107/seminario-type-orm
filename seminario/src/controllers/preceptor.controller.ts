@@ -19,9 +19,9 @@ export const getCursosByPreceptor=async(req:Request,res:Response)=>{
 //Trae la lista de alumnos de un curso para tomar asistencia o para mandar sms
 export const getAlumnosPorCurso=async(req:Request,res:Response)=>{
 
-    const {curso,cl,fecha}=req.params;
+    const {curso,cl,dia,mes,anio}=req.params;
     const alumnos=await getCustomRepository(AlumnoRepository)
-                    .findAlumnosPorCursoAsistencia(parseInt(curso),parseInt(cl),fecha);
+                    .findAlumnosPorCursoAsistencia(parseInt(curso),parseInt(cl),`${dia}/${mes}/${anio}`);
     return res.json(alumnos);
 
 }
@@ -33,9 +33,9 @@ export const tomarAsistencia=async(req:Request,res:Response)=>{
 }
 
 export const comprobarAsistencia= async (req:Request,res:Response)=>{
-    const {id,fecha}=req.params;
+    const {id,dia,mes,anio}=req.params;
     const asistencia=await getRepository(Asistencia).findOne({
-        where:[{id:id},{fecha:fecha}],
+        where:[{id:id},{fecha:`${dia}/${mes}/${anio}`}],
     });
 
     if(asistencia!=null){
