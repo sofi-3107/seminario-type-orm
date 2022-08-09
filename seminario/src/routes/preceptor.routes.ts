@@ -8,7 +8,7 @@ const preceptorRouter=Router();
 preceptorRouter.get("/cursos/:id",getCursosByPreceptor);
 
 //Lista de alumnos por cada curso para tomar asistencia o mandar sms
-preceptorRouter.get("/alumnos/:curso/:cl",getAlumnosPorCurso);
+preceptorRouter.get("/alumnos/:curso/:cl/:fecha",getAlumnosPorCurso);
 
 //guarda asistencia diaria
 preceptorRouter.post("/toma-asistencia/",tomarAsistencia);

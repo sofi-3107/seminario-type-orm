@@ -72,13 +72,13 @@ export class AlumnoRepository extends Repository<Alumno>{
         });
     }
     //Lista de Alumnos por curso para guardar su asistencia, para el envio de sms 
-    findAlumnosPorCursoAsistencia(curso:number,cl:number){
+    findAlumnosPorCursoAsistencia(curso:number,cl:number,fecha:string){
         return this.createQueryBuilder("a")
                     .innerJoin("a.cursos","cursos","cursos.cicloLectivo=:cl",{cl:cl})
                     .innerJoin("cursos.curso","curso","curso.id=:curso",{curso:curso})
-                    .leftJoin("a.asistencias","asistencia")
+                    .leftJoin("a.asistencias","asistencia","asistencia.fecha=:f",{f:fecha})
                     .innerJoin("a.tutor","tutor") 
-                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.estado"])
+                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.fecha","asistencia.estado"])
                     .getMany();
     }
 

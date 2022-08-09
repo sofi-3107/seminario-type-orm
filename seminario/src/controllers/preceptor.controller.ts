@@ -19,9 +19,9 @@ export const getCursosByPreceptor=async(req:Request,res:Response)=>{
 //Trae la lista de alumnos de un curso para tomar asistencia o para mandar sms
 export const getAlumnosPorCurso=async(req:Request,res:Response)=>{
 
-    const {curso,cl}=req.params;
+    const {curso,cl,fecha}=req.params;
     const alumnos=await getCustomRepository(AlumnoRepository)
-                    .findAlumnosPorCursoAsistencia(parseInt(curso),parseInt(cl));
+                    .findAlumnosPorCursoAsistencia(parseInt(curso),parseInt(cl),fecha);
     return res.json(alumnos);
 
 }
