@@ -78,7 +78,7 @@ export class AlumnoRepository extends Repository<Alumno>{
                     .innerJoin("cursos.curso","curso","curso.id=:curso",{curso:curso})
                     .leftJoin("a.asistencias","asistencia")
                     .innerJoin("a.tutor","tutor") 
-                    .select(["a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.estado"])
+                    .select(["a.id","a.nombre","a.apellido","tutor.nombre","tutor.apellido","tutor.telefono","curso.id","cursos.cicloLectivo","asistencia.estado"])
                     .getMany();
     }
 

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { getAlumnosPorCurso, getCursosByPreceptor, getInasistenciasAlumnosCurso, getNotasAlumnoCursoTodasMaterias, tomarAsistencia } from "../controllers/preceptor.controller";
+import { actualizarAsistencia, getAlumnosPorCurso, getCursosByPreceptor, getInasistenciasAlumnosCurso, getNotasAlumnoCursoTodasMaterias, tomarAsistencia } from "../controllers/preceptor.controller";
 
 const preceptorRouter=Router();
 
@@ -12,6 +12,9 @@ preceptorRouter.get("/alumnos/:curso/:cl",getAlumnosPorCurso);
 
 //guarda asistencia diaria
 preceptorRouter.post("/toma-asistencia/",tomarAsistencia);
+
+//actualiza asistencia diaria
+preceptorRouter.post("/actualiza-asistencia/",actualizarAsistencia);
 
 //Alumnos de un curso con sus inasistencias
 
