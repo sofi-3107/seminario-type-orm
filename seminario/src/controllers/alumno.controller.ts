@@ -1,6 +1,7 @@
 import { Request,Response } from "express";
 import { resolve } from "path";
 import { getCustomRepository } from "typeorm";
+import { AsistenciaRepository } from "../repository/AsistenciaRepository";
 import { MateriaRepository } from "../repository/MateriaRepository";
 import { MesaExamenRepository } from "../repository/MesaExamenRepository";
 import { NotasRepository } from "../repository/NotasRepository";
@@ -29,4 +30,18 @@ export const getMesasDisponibles=async(req:Request,res:Response)=>{
     const mesas= await getCustomRepository(MesaExamenRepository)
                         .findMesasExamenDisponiblesAlumno(parseInt(alumno),condicion,parseInt(cl),tipo);
     return res.json(mesas);
+}
+
+export const getDatosAsistenciaInasistencias= async(req:Request,res:Response)=>{
+    const {alumno,cl}=req.params;
+    const resultado= await getCustomRepository(AsistenciaRepository)
+                            .getCantAsistenciasInasistencias(parseInt(alumno),parseInt(cl));
+    return res.json(resultado);
+}
+
+export const getCantMateriasAprobadasyDesaprobadas= async(req:Request,res:Response)=>{
+    const {alumno,cl}=req.params;
+    const resultado= await getCustomRepository(NotasRepository)
+        .getCantidadMateriasAprobadasYDesaprobadas(parseInt(alumno),parseInt(cl));
+    return res.json(resultado);
 }

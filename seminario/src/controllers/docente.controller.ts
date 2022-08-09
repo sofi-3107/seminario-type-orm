@@ -74,9 +74,9 @@ export const getMesaUnica=async(req:Request,res:Response)=>{
 
 
 export const getAprobadosDesaprobadosPorMateria=async(req:Request,res:Response)=>{
-    const {docente,cl,trimestre,materia,condicion}=req.params;
+    const {docente,cl,trimestre,materia}=req.params;
     const aprobadosDesaprobados= await getCustomRepository(NotasRepository)
-        .getCantidadAprobadosDesaprobadosUnaMateria(condicion,parseInt(materia),parseInt(docente),parseInt(cl),parseInt(trimestre));
+        .getCantidadAprobadosDesaprobadosUnaMateria(parseInt(materia),parseInt(docente),parseInt(cl),parseInt(trimestre));
     return res.json(aprobadosDesaprobados);
    
 }

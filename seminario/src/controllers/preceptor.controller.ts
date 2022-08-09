@@ -27,7 +27,7 @@ export const getAlumnosPorCurso=async(req:Request,res:Response)=>{
 }
 
 export const tomarAsistencia=async(req:Request,res:Response)=>{
-   
+   console.log(req.body);
     const asistencia= await getRepository(Asistencia).save(req.body);
     return res.json(asistencia);
 }
@@ -61,3 +61,11 @@ export const getNotasAlumnoCursoTodasMaterias=async(req:Request,res:Response)=>{
     .getCantidadAprobadosDesaprobadosPorMateria(parseInt(curso),parseInt(cl),parseInt(trimestre),condicion);
 return res.json(notasAlumnosCurso);
 }
+
+export const actualizarAsistencia= async(req:Request,res:Response)=>{
+    const asistencia=await getRepository(Asistencia).findOne({id:req.body.id});
+    asistencia!.estado=req.body.estado;
+    const updatedAsistencia= await getRepository(Asistencia).save(asistencia!);
+    return res.json(asistencia);
+}
+

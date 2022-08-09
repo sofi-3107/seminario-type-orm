@@ -20,7 +20,7 @@ docenteRouter.get('/notas/:alumno/:materia/:anio/:tipo/:trimestre',getNota);
 // Encuesta
 docenteRouter.get('/encuesta/:cl/:trimestre/:docente/:materia',getRdoEncuestaPorMateria);
 //Grafico aprobados desaprobados por materia
-docenteRouter.get('/grafico/:condicion/:materia/:docente/:cl/:trimestre',getAprobadosDesaprobadosPorMateria);
+docenteRouter.get('/grafico/:materia/:docente/:cl/:trimestre',getAprobadosDesaprobadosPorMateria);
 
 
 export default docenteRouter;
