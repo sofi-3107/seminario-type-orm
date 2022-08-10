@@ -5,7 +5,8 @@ import { Alumno } from "./Alumno";
 
 export enum EstadoAsistencia{
     AUSENTE="ausente",
-    PRESENTE="presente"
+    PRESENTE="presente",
+    TARDE="tarde"
 }
 
 @Entity()
