@@ -4,7 +4,7 @@ import { getCantMateriasAprobadasyDesaprobadas, getDatosAsistenciaInasistencias,
 const alumnoRouter=Router();
 
 //Consulta de Libreta
-alumnoRouter.get('/libreta/:alumno/:materia/:anio/:tipo',getLibreta);
+alumnoRouter.get('/libreta/:alumno/:anio/:tipo',getLibreta);
 //Materias Pendientes
 alumnoRouter.get('/pendientes/:alumno/:cl',getMateriasPendientes);
 //Mesas de Examen disponibles

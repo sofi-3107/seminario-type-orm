@@ -77,7 +77,7 @@ export class MateriaRepository extends Repository<Materia>{
             .innerJoinAndSelect("docentes.docente","docente","docente.id=:id",{id:docente})
             .innerJoinAndSelect("m.curso","curso")
             .innerJoinAndSelect("curso.cursos","cursos")
-            .select(["m.id","m.nombre","docentes.docente","docente.id","curso.nivel","curso.ciclo","cursos.turno","cursos.division"])
+            .select(["cursos.id","m.id","m.nombre","docentes.docente","docente.id","curso.nivel","curso.ciclo","cursos.turno","cursos.division"])
             .getMany()
     }
 

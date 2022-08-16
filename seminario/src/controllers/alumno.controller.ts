@@ -45,3 +45,4 @@ export const getCantMateriasAprobadasyDesaprobadas= async(req:Request,res:Respon
         .getCantidadMateriasAprobadasYDesaprobadas(parseInt(alumno),parseInt(cl));
     return res.json(resultado);
 }
+
