@@ -48,8 +48,23 @@ export const cargarNotasAlumnos=async(req:Request,res:Response)=>{
     /* En el mismo cuerpo del body, en el objeto nota pondremos el tipo
     y se puede usar este mismo método para las mesas de examen y notas normales
     desde la app se manejara el atirbuto tipo */
-    console.log('llego por red'+req.body);
-    const calif=await getRepository(Nota).save(req.body);
+    console.log('llego por red: '+req.body.mesaExamenId);
+    const {trimestre,cicloLectivo,fecha,calificacion,materia,tipo,alumno,condicionMateria,docente,curso,mesaExamenId}=req.body;
+   const nota= await getRepository(Nota).create({
+    trimestre:trimestre,
+    cicloLectivo:cicloLectivo,
+    fecha:fecha,
+    calificacion:calificacion,
+    materia:materia,
+    tipo:tipo,
+    alumno:alumno,
+    condicionMateria:condicionMateria,
+    docente:docente,
+    curso:curso,
+    mesaExamen:mesaExamenId
+   });
+    const calif=await getRepository(Nota).save(nota);
+   
      return res.json(calif);
 }
 

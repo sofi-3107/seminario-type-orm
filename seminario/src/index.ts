@@ -7,6 +7,8 @@ import { NotasRepository } from "./repository/NotasRepository";
 import alumnoRouter from "./routes/alumno.routes";
 import preceptorRouter from "./routes/preceptor.routes";
 import { EncuestaRepository } from "./repository/EncuestaRepository";
+import { AlumnoRepository } from "./repository/AlumnoRepository";
+import { MesaExamenRepository } from "./repository/MesaExamenRepository";
 
 
 //import morgan from "morgan";
@@ -27,9 +29,7 @@ app.use('/alumno',alumnoRouter);
 
 createConnection().then(async connection => {
 
-//const encuesta= await getCustomRepository(EncuestaRepository).getDatosEncuestaDocenteMateria(2022,1,1,11);
-   
-//console.log(encuesta);
+
 
 }).catch(error => console.log(error));
 

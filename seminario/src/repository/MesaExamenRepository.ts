@@ -42,7 +42,7 @@ import { MesaExamen } from "../entity/MesaExamen";
                         .innerJoinAndSelect("mesa.docentesMesa","docentesMesa")
                         .innerJoinAndSelect("docentesMesa.docente","docente","docente.id=:id",{id:docente})
                         .innerJoinAndSelect("mesa.inscriptos","inscriptos")
-                        .select(["materia.nombre","mesa.id","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre","inscriptos.nombre","inscriptos.apellido","docentesMesa.isPresidente"])                     
+                        .select(["materia.id","materia.nombre","mesa.id","mesa.fecha","mesa.anio","docentesMesa.docenteId","docente.nombre","inscriptos.nombre","inscriptos.apellido","docentesMesa.isPresidente"])                     
                         .where("mesa.tipo=:tipo AND mesa.anio=:anio",{tipo:tipo,anio:anio})
                         .getMany()
                 }
@@ -53,8 +53,9 @@ import { MesaExamen } from "../entity/MesaExamen";
                     return this.createQueryBuilder("mesa")
                         .innerJoinAndSelect("mesa.materia","materia")
                         .innerJoinAndSelect("mesa.inscriptos","alumnos")
-                        .select(["mesa.id","mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre"])
-                        .where("mesa.id=:mesa",{mesa:mesa})
+                        .leftJoin("alumnos.notas","nota","nota.mesaExamenId=:m",{m:mesa})
+                        .select(["mesa.id","mesa.fecha","mesa.horaInicio","mesa.horaFin","materia.nombre","alumnos.id","alumnos.apellido","alumnos.nombre","nota.calificacion"])
+                        .where("mesa.id=:mesa ",{mesa:mesa,m:mesa})
                         .getOne()
                 }
 
