@@ -1,6 +1,7 @@
 import { Request,Response } from "express";
 import { resolve } from "path";
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, getRepository } from "typeorm";
+import { Asistencia } from "../entity/Asistencia";
 import { AsistenciaRepository } from "../repository/AsistenciaRepository";
 import { MateriaRepository } from "../repository/MateriaRepository";
 import { MesaExamenRepository } from "../repository/MesaExamenRepository";
@@ -44,5 +45,11 @@ export const getCantMateriasAprobadasyDesaprobadas= async(req:Request,res:Respon
     const resultado= await getCustomRepository(NotasRepository)
         .getCantidadMateriasAprobadasYDesaprobadas(parseInt(alumno),parseInt(cl));
     return res.json(resultado);
+}
+
+export const getAsistencia= async (req:Request, res:Response)=>{
+    const {alumno,cl}=req.params;
+    const asistencia= await getRepository(Asistencia).find({where:{alumno:alumno,cicloLectivo:cl}});
+    return res.json(asistencia);
 }
 

@@ -6,6 +6,7 @@ import { Persona } from "./Persona";
 import { AlumnoCurso } from "./AlumnoCurso";
 import { Tutor } from "./Tutor";
 import { Tramite } from "./Tramite";
+import { AlumnoMaterias } from "./alumno_materias";
 
 @Entity()
 export class Alumno extends Persona{
@@ -24,6 +25,10 @@ export class Alumno extends Persona{
 
     @ManyToOne(()=>Tutor,tutor=>tutor.alumnos)
     tutor:Tutor;
+
+    @OneToMany(()=>AlumnoMaterias,alumnoMaterias=>alumnoMaterias.alumno)
+    situacionMaterias:AlumnoMaterias;
+
 
     @OneToMany(()=>Tramite,tramite=>tramite.alumno)
     tramites:Tramite[];
