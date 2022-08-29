@@ -1,5 +1,6 @@
 import { Request,Response } from "express";
 import { getCustomRepository, getRepository, Transaction } from "typeorm";
+import { Docente } from "../entity/Docente";
 import { Nota, TipoNota } from "../entity/Nota";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
 import { EncuestaRepository } from "../repository/EncuestaRepository";
@@ -76,6 +77,10 @@ export const getMesasDeExamen=async(req:Request,res:Response)=>{
     const mesas= await getCustomRepository(MesaExamenRepository)
         .findMesasDeExamen(parseInt(id),parseInt(anio),tipo);
     return res.json(mesas);
+}
+export const getNombre=async(req:Request,res:Response)=>{
+    const docente= await getRepository(Docente).findOne({where:{id:req.params.id}});
+    return res.json(docente);
 }
 
 /**Traer lista de alumnos de una mesa de examen */

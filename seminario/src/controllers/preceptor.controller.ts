@@ -3,6 +3,7 @@ import { resolve } from "path";
 import { json } from "stream/consumers";
 import { getCustomRepository, getRepository } from "typeorm";
 import { Asistencia } from "../entity/Asistencia";
+import { Preceptor } from "../entity/Preceptor";
 import { AlumnoRepository } from "../repository/AlumnoRepository";
 import { AsistenciaRepository } from "../repository/AsistenciaRepository";
 import { CursoRepository } from "../repository/CursoRepository";
@@ -24,6 +25,11 @@ export const getAlumnosPorCurso=async(req:Request,res:Response)=>{
                     .findAlumnosPorCursoAsistencia(parseInt(curso),parseInt(cl),`${dia}/${mes}/${anio}`);
     return res.json(alumnos);
 
+}
+
+export const getNombre=async(req:Request,res:Response)=>{
+    const preceptor= await getRepository(Preceptor).findOne({where:{id:req.params.id}});
+    return res.json(preceptor);
 }
 
 export const tomarAsistencia=async(req:Request,res:Response)=>{

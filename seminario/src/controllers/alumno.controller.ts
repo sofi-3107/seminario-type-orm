@@ -1,6 +1,7 @@
 import { Request,Response } from "express";
 import { resolve } from "path";
 import { getCustomRepository, getRepository } from "typeorm";
+import { Alumno } from "../entity/Alumno";
 import { Asistencia } from "../entity/Asistencia";
 import { AsistenciaRepository } from "../repository/AsistenciaRepository";
 import { MateriaRepository } from "../repository/MateriaRepository";
@@ -23,6 +24,11 @@ export const getMateriasPendientes=async(req:Request,res:Response)=>{
     const materias= await getCustomRepository(MateriaRepository)
                         .getMateriasPendientesAlumno(parseInt(alumno),parseInt(cl));
     return res.json(materias);
+}
+
+export const getNombre=async(req:Request,res:Response)=>{
+    const alumno= await getRepository(Alumno).findOne({where:{id:req.params.id}});
+    return res.json(alumno);
 }
 
 

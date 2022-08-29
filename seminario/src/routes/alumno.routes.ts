@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { getAsistencia, getCantMateriasAprobadasyDesaprobadas, getDatosAsistenciaInasistencias, getLibreta, getMateriasPendientes, getMesasDisponibles } from "../controllers/alumno.controller";
+import { getAsistencia, getCantMateriasAprobadasyDesaprobadas, getDatosAsistenciaInasistencias, getLibreta, getMateriasPendientes, getMesasDisponibles, getNombre } from "../controllers/alumno.controller";
 
 const alumnoRouter=Router();
 
@@ -15,4 +15,6 @@ alumnoRouter.get('/asistencia-grafico/:alumno/:cl',getDatosAsistenciaInasistenci
 alumnoRouter.get('/materias-grafico/:alumno/:cl',getCantMateriasAprobadasyDesaprobadas);
 //Objeto asistencia para ver cuantas inasistencias y llegadas tarde tiene
 alumnoRouter.get('/asistencia-resumen/:alumno/:cl',getAsistencia);
+//Nombre del alumno
+alumnoRouter.get('/nombre/:id',getNombre);
 export default alumnoRouter;
